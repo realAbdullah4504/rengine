@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}
+Configuración de Proxy
+{% endblock title %}
+
+{% block custom_js_css_link %}
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+<li class="breadcrumb-item"><a href="#">Configuración</a></li>
+<li class="breadcrumb-item active">Configuración de Proxy</li>
+{% endblock breadcrumb_title %}
+
+{% block page_title %}
+Configuración de Proxy
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Configuración de Proxy</h4>
+        <p>Cada sitio web tiene un límite de cierto número de solicitudes permitidas durante un período de tiempo desde una dirección IP particular. Exceder el límite bloqueará cualquier solicitud entrante desde esa dirección IP durante un período específico.
+          Esto resulta en resultados de reconocimiento poco fiables. Por ejemplo, si ejecuta Nuclei en un objetivo particular con todas las plantillas, es probable que su IP sea bloqueada debido a la cantidad de solicitudes realizadas por Nuclei.
+          <br>
+          Y esto es especialmente cierto para la búsqueda y otro OSINT que realiza. Después de ciertos intentos de búsqueda, Google probablemente bloqueará su IP durante cierto período de tiempo.
+        </p>
+        <div class="alert alert-primary border-0" role="alert">
+          Se recomienda usar proxies.
+        </div>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-check mb-2 form-check-primary">
+            {{form.use_proxy}}
+            <label class="form-check-label" for="use_proxy">Usar Proxy</label>
+          </div>
+          <h4 class="header-title">Lista de Proxies</h4>
+          <p>Puede ingresar tantos proxies como desee <span class="text-primary">seleccionará aleatoriamente</span> uno de ellos durante el escaneo.</p>
+          <label class="form-label" for="proxies">Separe los proxies con una nueva línea.</label>
+          {{form.proxies}}
+          <button type="submit" class="btn btn-primary mt-3 float-end">Guardar Proxies</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+
+{% block page_level_script %}
+<script type="text/javascript">
+$(document).ready(function(){
+  var use_proxy = document.getElementById("use_proxy");
+  use_proxy.addEventListener('change', function() {
+    if (this.checked) {
+      document.getElementById("proxies").readOnly = false;
+    }
+    else{
+      document.getElementById("proxies").readOnly = true;
+    }
+  });
+});
+</script>
+{% endblock page_level_script %}

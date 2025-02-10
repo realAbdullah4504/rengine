@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %}
+Programas de {{platform}}
+{% endblock title %}
+
+{% block custom_js_css_link %}
+{% endblock custom_js_css_link %}
+
+{% block page_title %}
+Programas de {{platform}}
+{% endblock page_title %}
+
+{% block breadcrumb_title %}
+<li class="breadcrumb-item"><a href="/{{current_project.slug}}/">Panel de Control</a></li>
+<li class="breadcrumb-item"><a href="#">Centro de Recompensas</a></li>
+<li class="breadcrumb-item active">Programas de {{platform}}</li>
+{% endblock breadcrumb_title %}
+
+{% block main_content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <form id="program-filter-form">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-4 col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fe-search"></i></span>
+                                <input type="search" class="form-control" placeholder="Buscar programas" aria-label="Buscar programas" id="search-program-box">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-2">
+                            <select class="form-select" aria-label="Tipo de programa">
+                                <option selected>Todos los programas</option>
+                                <option>Elegible para Recompensa</option>
+                                <option>VDP</option>
+                                <option>Programas Privados</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-lg-2">
+                            <select class="form-select" id="sort-select" aria-label="Ordenar programas">
+                                <option selected disabled>Ordenar por</option>
+                                <option value="name-asc">Nombre (A a Z)</option>
+                                <option value="name-desc">Nombre (Z a A)</option>
+                                <option value="reports-desc">Más reportes</option>
+                                <option value="reports-asc">Menos reportes</option>
+                                <option value="posted-desc">Más Recientes</option>
+                                <option value="posted-asc">Menos Recientes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-lg-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="show-bookmarked-programs">
+                                <label class="form-check-label" for="show-bookmarked-programs">
+                                    Programas marcados
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-lg-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="show-closed-programs">
+                                <label class="form-check-label" for="show-closed-programs">
+                                    Programas cerrados
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="program_cards">
+</div>
+<div class="floating-action-container">
+  <button id="importProgramsBtn" class="btn btn-primary import-programs-btn" disabled>
+    <i class="fe-download-cloud"></i> Importar Programas
+  </button>
+  <a href="#" id="clearSelectionsLink" class="clear-selections-link" style="display: none;">
+    Limpiar todo <i class="fe-x-circle"></i>
+  </a>
+</div>
+{% endblock main_content %}
+
+{% block page_level_script %}
+<script src="{% static 'custom/bountyhub.js' %}"></script>
+{% endblock page_level_script %}

@@ -1,0 +1,302 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Agregar objetivos
+{% endblock title %}
+
+
+{% block custom_js_css_link %}
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+<li class="breadcrumb-item"><a href="{% url 'list_target' current_project.slug %}">Objetivos</a></li>
+<li class="breadcrumb-item active">Agregar Objetivo</li>
+{% endblock breadcrumb_title %}
+
+{% block page_title %}
+Agregar o Importar Objetivos
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-body">
+        <ul class="nav nav-tabs nav-bordered">
+          <li class="nav-item">
+            <a href="#add-multiple-tab" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+              Agregar Objetivos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#ip-address-tab" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+              Resolver y agregar dirección IP
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle arrow-none" href="#" id="import-dropdown" role="button"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Importar
+            <div class="arrow-down"></div>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="import-dropdown">
+            <a class="dropdown-item" href="#import-text-tab" data-bs-toggle="tab" aria-expanded="false" class="nav-link">Importar desde archivo de texto</a>
+            <a class="dropdown-item" href="#import-csv-tab" data-bs-toggle="tab" aria-expanded="false" class="nav-link">Importar desde CSV</a>
+          </div>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade" id="ip-address-tab" role="tabpanel" aria-labelledby="ip-address-tab">
+          <form method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-12">
+                <div class="alert alert-primary border-0 mb-4" role="alert">
+                  Por favor, ingrese su dirección IP objetivo, reNgine buscará los registros <b>A</b> y los resolverá a los dominios.
+                </div>
+                <label for="ip_address" class="text-dark">Dirección IP o CIDR</br><span class="text-muted">Ejemplo: 192.168.1.1 o 192.168.1.1/24, ambos son compatibles</span></label>
+                <input type="text" name="ip_address" class="form-control form-control-lg" id="ip_address" placeholder="X.X.X.X">
+                <button class="btn btn-primary mt-2 float-end" disabled type="button" name="resolve_ip_button" id="resolve_ip_button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-repeat"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg> Resolver dirección IP</button>
+              </div>
+              <div class="col-12">
+                <div id='all_domains_checkbox' class='mt-2 n-chk'>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="select_all_ip_domains">
+                    <label class="form-check-label" for="select_all_ip_domains">Seleccionar todos los dominios</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mt-3">
+                <div id="resolved_domains_div">
+                </div>
+              </div>
+              <div class="col-12 mt-3">
+                <label for="targetDescription" class="form-label">Descripción del objetivo (Opcional)</label>
+                <input type="text" class="form-control form-control-lg" id="targetDescription" placeholder="Objetivo interesante" name="targetDescription">
+              </div>
+              {% if user_preferences.bug_bounty_mode %}
+              <div class="col-12 mt-3">
+                <label for="domainDescription" class="form-label">Identificador del equipo HackerOne
+                  <br>
+                  Esto se usa para enviar informes de vulnerabilidad al programa HackerOne automáticamente. El identificador del equipo se puede encontrar en la URL del programa, <a href="https://hackerone.com/team_handle">https://hackerone.com/team_handle</a>
+                </label>
+                <input type="text" class="form-control form-control-lg" id="targetH1TeamHandle" placeholder="team_handle" name="targetH1TeamHandle">
+                <button class="btn btn-primary submit-fn mt-2 float-end" disabled type="submit" name="add-ip-target" id="add-ip-target" value="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> <span id="add_ip_target_btn">Agregar objetivo</span></button>
+              </div>
+              {% endif %}
+            </form>
+          </div>
+        </div>
+        <div class="tab-pane fade show active" id="add-multiple-tab" role="tabpanel" aria-labelledby="add-multiple-tab">
+          <form method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-12">
+                <label for="importSubdomainFormControlTextarea">Puede agregar uno o más objetivos. Si está agregando múltiples objetivos, sepárelos usando nueva línea. Si el subdominio ya existe, será omitido.</label>
+                <textarea class="form-control" id="addTargets" rows="8" spellcheck="false" name="addTargets" placeholder="ejemplo.com"></textarea>
+              </div>
+              <div class="col-12 mt-3">
+                <label for="targetDescription">Descripción del objetivo (Opcional)</label>
+                <input type="text" class="form-control form-control-lg" id="targetDescription" placeholder="Objetivo interesante" name="targetDescription">
+              </div>
+              {% if user_preferences.bug_bounty_mode %}
+              <div class="col-12 mt-3">
+                <label for="domainDescription" class="form-label">Identificador del equipo HackerOne
+                  <br>
+                  Esto se usa para enviar informes de vulnerabilidad al programa HackerOne automáticamente. El identificador del equipo se puede encontrar en la URL del programa, <a href="https://hackerone.com/team_handle">https://hackerone.com/team_handle</a>
+                </label>
+                <input type="text" class="form-control form-control-lg" id="targetH1TeamHandle" placeholder="team_handle" name="targetH1TeamHandle">
+              </div>
+              {% endif %}
+              <div class="col-12 mt-3">
+                <label for="targetDescription">Organización del objetivo (Opcional)</label>
+                <input type="text" class="form-control form-control-lg" id="targetOrganization" placeholder="Organización ejemplo" name="targetOrganization">
+              </div>
+            </div>
+            <button class="btn btn-primary submit-fn mt-2 float-end" type="submit" id="add-multiple-targets" name="add-multiple-targets" value="submit">Agregar 0 objetivos</button>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="import-text-tab" role="tabpanel" aria-labelledby="import-text-tab">
+          <div class="row">
+            <div class="col-12">
+              <div class="alert alert-primary border-0 mb-4" role="alert">
+                Su archivo txt debe tener una lista de dominios separados por una nueva línea.
+                <br><br>
+                Por defecto, todos los dominios importados desde txt no tendrán descripción ni organización. Si desea importar múltiples dominios con descripción y/o organización, se recomienda la importación csv.
+              </div>
+              <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  {% csrf_token %}
+                  <input type="file" class="form-control" id="txtFile" required accept=".txt" name="txtFile" onchange="showname(this, '#selectedTextFileName')">
+                  <h6 id="selectedTextFileName" class="text-primary"></h6>
+                </div>
+                <input type="submit" class="btn btn-primary float-right mt-5 mb-2" value="Subir" name="import-txt-target">
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="import-csv-tab" role="tabpanel" aria-labelledby="import-csv-tab">
+          <div class="row">
+            <div class="col-12">
+              <div class="alert alert-warning border-0 mb-4" role="alert">
+                Su archivo csv debe estar en el formato de <strong>dominio, descripción, organización</strong> separados por una nueva línea.
+              </div>
+              <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  {% csrf_token %}
+                  <input type="file" class="form-control" id="csvFile" required accept=".csv" name="csvFile" onchange="showname(this, '#selectedCsvFileName')">
+                  <h6 id="selectedCsvFileName" class="text-primary"></h6>
+                </div>
+                <input type="submit" class="btn btn-primary float-right mt-5 mb-2" value="Subir" name="import-csv-target">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+
+
+{% block page_level_script %}
+<script src="{% static 'custom/custom.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var add_multiple_targets_btn = document.getElementById("add-multiple-targets");
+    add_multiple_targets_btn.disabled = true;
+    $('#addTargets').on('change keyup',function(){
+      var text = $("#addTargets").val();
+      var lines = text.split(/\r|\r\n|\n/);
+      var count = lines.length;
+      add_multiple_targets_btn.innerHTML = `Add ${count} Targets`;
+      if (!count) {
+        add_multiple_targets_btn.disabled = true;
+      }
+      else{
+        add_multiple_targets_btn.disabled = false;
+      }
+    });
+
+    $('#ip_address').on('change keyup',function(){
+      var resolve_ip_button = document.getElementById("resolve_ip_button");
+      var ip_addr = $("#ip_address").val();
+      if (/^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/.test(ip_addr)) {
+        resolve_ip_button.disabled = false;
+      }
+      else {
+        resolve_ip_button.disabled = true;
+      }
+    });
+
+    // hide all checkbox by default
+    $("#all_domains_checkbox").hide();
+    $("#resolve_ip_button").click(function(){
+      // get ip address
+      var ip_addr = $("#ip_address").val();
+      $('#resolved_domains_div').empty();
+      swal.fire({
+        title: `Boteo de dominios`,
+        text: `Espere mientras busquemos dominios asociados con la dirección IP o CIDR ${ip_address.value}`,
+        padding: '2em',
+        onOpen: function() {
+          swal.showLoading()
+          return fetch(`/api/tools/ip_to_domain/?format=json&ip_address=${ip_address.value}`, {
+            method: 'GET',
+            credentials: "same-origin",
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken")
+            }
+          })
+          .then(function(response) {
+            return response.json();
+          }).then(function(json_data) {
+            if (json_data['status']) {
+              // #resolved_domains_div
+              $("#all_domains_checkbox").show();
+              if(Array.isArray(json_data['ip_address'])) {
+                $('#resolved_domains_div').append(`<b class='text-info'>${json_data['ip_address'].length} domains associated with IP Address ${json_data['orig']}</b></br>`);
+                $('#resolved_domains_div').append(`<b>Please select the domains to import.</b>`);
+                $('#resolved_domains_div').append(`<div id='domains_checkbox' class='mt-2 row'></div>`);
+                json_data['ip_address'].forEach((ip_info, index, array) => {
+                  for (var domain in ip_info['domains']) {
+                    $('#domains_checkbox').append(`
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-12">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input resolved_ip_domains" name="resolved_ip_domains" id="${ip_info['domains'][domain]}" value="${ip_info['domains'][domain]}">
+                        <label class="form-check-label" for="${ip_info['domains'][domain]}">${ip_info['domains'][domain]}</label>
+                      </div>
+                    </div>`
+                    );
+                  }
+                })
+              }
+              swal.close();
+              // resolved_ip_domains if any is checked, then only enable add button
+              $(".resolved_ip_domains").change(function(){
+                var add_multiple_targets_btn = document.getElementById("add-ip-target");
+                var checked_count = $('.resolved_ip_domains:checked').length;
+                if (checked_count > 0) {
+                  add_multiple_targets_btn.disabled = false;
+                  $('#add_ip_target_btn').html(`Add ${checked_count} Targets`);
+                }
+                else{
+                  add_multiple_targets_btn.disabled = true;
+                }
+              });
+            }
+            else{
+              $("#all_domains_checkbox").hide();
+              swal.close();
+              swal({
+                title: `Lo siento, no hay dominios asociados con la dirección IP ${ip_address.value}!`,
+                type: 'error',
+                padding: '2em'
+              })
+            }
+          })
+          .catch(function() {
+            swal.insertQueueStep({
+              type: 'error',
+              title: '¡Ups!¡No se puede buscar dominios para esta IP!'
+            })
+          })
+        }
+      });
+    });
+
+    // if select all checkbox is checked, select all domains
+    $("#select_all_ip_domains").click(function () {
+      $(".resolved_ip_domains").prop('checked', $(this).prop('checked'));
+      document.getElementById("add-ip-target").disabled = false;
+      var checked_count = $('.resolved_ip_domains:checked').length;
+      $('#add_ip_target_btn').html(`Add ${checked_count} Targets`);
+    });
+
+    $('#domainName').on('change keyup',function(){
+      if ($('#domainName').val().length) {
+        $("#add-single-target").removeAttr("disabled");
+        $("#btn_view_whois").removeClass("btn disabled");
+      }
+      else{
+        $("#add-single-target").prop("disabled", true);
+        $("#btn_view_whois").addClass("btn disabled");
+      }
+    });
+  });
+
+  function showname (file, id) {
+    $(id).html('Selected file: ' + htmlEncode(file.files.item(0).name));
+  };
+
+  function show_whois(){
+    // check if target exists or not
+    var domain = document.getElementById("domainName").value;
+    if (domain) {
+      get_domain_whois(domain);
+    }
+  }
+
+</script>
+{% endblock page_level_script %}

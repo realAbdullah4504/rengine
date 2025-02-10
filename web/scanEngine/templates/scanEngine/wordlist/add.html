@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Agregar Nueva Lista de Palabras
+{% endblock title %}
+
+
+{% block custom_js_css_link %}
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+<li class="breadcrumb-item"><a href="{% url 'wordlist_list' current_project.slug %}">Lista de Palabras</a></li>
+<li class="breadcrumb-item active">Agregar Lista de Palabras</li>
+{% endblock breadcrumb_title %}
+
+{% block page_title %}
+Agregar Nueva Lista de Palabras para Fuerza Bruta
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- <p>La lista de palabras se puede usar para fuerza bruta de directorios o subdominios. Las instrucciones sobre cómo usar la lista de palabras se <a href="https://rengine.wiki/usage/wordlist/">encuentran aquí <i class="fe-external-link"></i></a></p> -->
+        <form class="simple-example" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-6">
+              <label for="name" class="form-label">Nombre de la Lista</label>
+              {{ form.name }}
+            </div>
+            <div class="col-6">
+              <label for="short_name" class="form-label">Nombre Corto</label>
+              {{ form.short_name }}
+              {% if form.errors.short_name %}
+              <div class="invalid-feedback" style="display: block;">
+                {{ form.errors.short_name|striptags }}
+              </div>
+              {% endif %}
+              <p class="text-primary mt-1">Por favor, mantenga los nombres cortos sin espacios, como mi-lista o mi_lista. Los nombres cortos se usarán más adelante para hacer referencia a la lista de palabras en la configuración YAML.</p>
+            </div>
+            <div>
+              <h4 class="header-title">Seleccione el archivo de lista de palabras</h4>
+              <p class="text-primary">Su lista de palabras debe ser un archivo *.txt y las palabras deben estar separadas por una nueva línea.</p>
+            </div>
+            <div class="custom-file mb-4">
+              <label class="form-label" for="txtFile">Elija archivo *.txt</label>
+              {{ form.upload_file }}
+            </div>
+          </div>
+          <button class="btn btn-primary submit-fn mt-2 float-end" type="submit">Subir Lista de Palabras</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+
+
+{% block page_level_script %}
+<script type="text/javascript">
+var input = document.getElementById("name");
+var shortName = document.getElementById("short_name");
+
+input.addEventListener("input", function() {
+  inputValue = document.getElementById("name").value;
+  shortName.value = inputValue.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();;
+});
+
+shortName.addEventListener("input", function() {
+  inputValue = document.getElementById("short_name").value;
+  shortName.value = inputValue.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();;
+});
+
+
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+{% endblock page_level_script %}

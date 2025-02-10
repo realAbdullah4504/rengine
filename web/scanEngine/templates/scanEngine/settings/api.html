@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}
+Bóveda de API
+{% endblock title %}
+
+{% block custom_js_css_link %}
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+<li class="breadcrumb-item"><a href="#">Configuración</a></li>
+<li class="breadcrumb-item active">Bóveda de API</li>
+{% endblock breadcrumb_title %}
+
+{% block page_title %}
+Bóveda de API
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form method="POST" autocomplete="off">
+          {% csrf_token %}
+          <div class="col-12">
+            <div class="p-sm-3">
+              <div class="mb-3">
+                <label for="key_openai" class="form-label">OpenAI</label>
+                <p class="text-muted">Las claves de OpenAI se utilizarán para generar descripciones de vulnerabilidades, remediación, impacto y redacción de informes de vulnerabilidades usando GPT.</p>
+                <div class="flex-grow-1 position-relative">
+                {% if openai_key %}
+                  <input class="form-control" type="password" id="key_openai" name="key_openai" placeholder="Ingrese Clave OpenAI" value="{{openai_key}}">
+                {% else %}
+                  <input class="form-control" type="text" id="key_openai" name="key_openai" placeholder="Ingrese Clave OpenAI">
+                {% endif %}
+                  <div class="position-absolute top-50 end-0 translate-middle-y pe-2" style="cursor: pointer;" data-password="false">
+                    <span class="password-eye"></span>
+                  </div>
+                </div>
+                <span class="text-muted float-end optional-text mt-2">Esto es opcional pero recomendado. Obtenga su clave API de <a href="https://platform.openai.com/api-keys" target="_blank">https://platform.openai.com/api-keys</a></span>
+              </div>
+              <div class="mb-3">
+                <label for="key_netlas" class="form-label">Netlas</label>
+                <p class="text-muted">Las claves de Netlas se utilizarán para obtener información whois y otros datos relacionados con OSINT.</p>
+                <div class="flex-grow-1 position-relative">
+                {% if netlas_key %}
+                  <input class="form-control" type="password" id="key_netlas" name="key_netlas" placeholder="Ingrese Clave Netlas" value="{{netlas_key}}">
+                {% else %}
+                  <input class="form-control" type="text" id="key_netlas" name="key_netlas" placeholder="Ingrese Clave Netlas">
+                {% endif %}
+                  <div class="position-absolute top-50 end-0 translate-middle-y pe-2" style="cursor: pointer;" data-password="false">
+                    <span class="password-eye"></span>
+                  </div>
+                </div>
+                <span class="text-muted float-end optional-text mt-2">Esto es opcional. Obtenga su clave API de <a href="https://netlas.io" target="_blank">https://netlas.io</a></span>
+              </div>
+              <div class="mb-3">
+                <label for="key_chaos" class="form-label">Chaos por Project Discovery</label>
+                <p class="text-muted">Las claves de Chaos se utilizarán para la enumeración de subdominios y datos de reconocimiento para Programas de Bug Bounty Públicos.</p>
+                <div class="flex-grow-1 position-relative">
+                {% if chaos_key %}
+                  <input class="form-control" type="password" id="key_chaos" name="key_chaos" placeholder="Ingrese Clave Chaos" value="{{chaos_key}}">
+                {% else %}
+                  <input class="form-control" type="text" id="key_chaos" name="key_chaos" placeholder="Ingrese Clave Chaos">
+                {% endif %}
+                  <div class="position-absolute top-50 end-0 translate-middle-y pe-2" style="cursor: pointer;" data-password="false">
+                    <span class="password-eye"></span>
+                  </div>
+                </div>
+                <span class="text-muted float-end optional-text mt-2">Esto es opcional pero recomendado. Obtenga su clave API de <a href="https://cloud.projectdiscovery.io" target="_blank">https://cloud.projectdiscovery.io</a></span>
+              </div>
+              {% if user_preferences.bug_bounty_mode %}
+                <div class="mb-3">
+                  <label for="key_hackerone" class="form-label">Hackerone</label>
+                  <div class="row">
+                  <p class="text-muted">Las Claves de Hackerone se utilizarán para importar objetivos, programas marcados y enviar informes de vulnerabilidades automatizados a Hackerone. Esta es una característica específica de bug bounty.</p>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="hackerone_username" class="form-label">Usuario de Hackerone (No email)</label>
+                    {% if hackerone_username %} <input class="form-control" type="text" id="username_hackerone" name="username_hackerone" placeholder="Ingrese Usuario Hackerone" value="{{hackerone_username}}"> {% else %} <input class="form-control" type="text" id="username_hackerone" name="username_hackerone" placeholder="Ingrese Usuario Hackerone"> {% endif %}
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="hackerone_key" class="form-label">Genere su <a href="https://hackerone.com/settings/api_token/edit" target="_blank">Token API aquí <i class="fe-external-link"></i></a></label>
+                    <div class="flex-grow-1 position-relative">
+                    {% if hackerone_key %} <input class="form-control" type="password" id="key_hackerone" name="key_hackerone" placeholder="Ingrese Clave Hackerone" value="{{hackerone_key}}"> {% else %} <input class="form-control" type="text" id="key_hackerone" name="key_hackerone" placeholder="Ingrese Token Hackerone"> {% endif %}
+                    <div class="position-absolute top-50 end-0 translate-middle-y pe-2" style="cursor: pointer;" data-password="false">
+                      <span class="password-eye"></span>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <p class="text-muted float-end mt-2 mb-2">Esto es opcional pero recomendado para cazadores de bugs. Obtenga su clave API de la <a href="https://api.hackerone.com/getting-started-hacker-api/#getting-started-hacker-api" class="text-primary" target="_blank">Documentación de Hackerone</a></p>
+                  </div>
+                  <div class="col-12">
+                    <a href="#" onclick="test_hackerone()" class="text-info float-end">Probar mis claves de hackerone <i class="fe-check-circle"></i></a>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              </div>
+              <div class="mb-0">
+                <button class="btn btn-primary float-sm-end my-4" type="submit">Actualizar Claves API</button>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+
+{% block page_level_script %}
+{% endblock page_level_script %}

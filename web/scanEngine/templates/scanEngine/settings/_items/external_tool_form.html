@@ -1,0 +1,171 @@
+<div class="col-md-12">
+  <div class="mb-3">
+    <label for="tool_name" class="form-label">Nombre de la Herramienta <span class="text-danger">(Requerido)</span></label>
+    {{form.name}}
+    {% if form.errors.name %}
+    <span class="text-danger">
+      {{form.errors.name}}
+    </span>
+    {% endif %}
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="mb-3">
+    <label for="tool_category" class="form-label">Categoría de la Herramienta</label>
+    <br>
+    <span class="me-4">¿Esta herramienta recopila subdominios?</span>
+    <label class="switch s-icons s-outline s-outline-info">
+      {{form.is_subdomain_gathering}}
+      <span class="slider round"></span>
+    </label>
+    <br>
+    <span class="text-muted">Si ha elegido esta herramienta como herramienta de recopilación de subdominios, podrá usarla en la configuración del motor de escaneo y proporcionar este nombre de herramienta dentro de <code>uses_tools</code>. Si no, aún podrá usar esta herramienta en nuestro motor de scripts personalizados.</span>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="mb-3">
+    <label for="github_url" class="form-label">URL de Github <span class="text-danger">(Requerido)</span></label>
+    <br>
+    <label class="form-label text-primary">La URL de Github es necesaria para verificar las versiones y actualizaciones recientes.</label>
+    {{form.github_url}}
+    {% if form.errors.github_url %}
+    <span class="text-danger">
+      {{form.errors.github_url}}
+    </span>
+    {% endif %}
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="mb-3">
+    <label for="tool_logo_url" class="form-label">Logo de la Herramienta (URL) <span class="text-muted">(Opcional)</span></label>
+    {{form.logo_url}}
+  </div>
+</div>
+<div class="col-md-6">
+  <div class="mb-3">
+    <label for="license_url" class="form-label">URL de Licencia de la Herramienta <span class="text-muted">(Opcional)</span></label>
+    {{form.license_url}}
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="mb-3">
+    <label for="tool_description" class="form-label">Descripción <span class="text-danger">(Requerido)</span></label>
+    {{form.description}}
+  </div>
+</div>
+<h5>Proceso de Instalación de la Herramienta</h5>
+<div class="row">
+  <p class="text-danger">Tenga en cuenta que cualquier comando aquí se ejecutará directamente en el shell, así que tenga cuidado con los comandos que está utilizando.</p>
+  <div class="col-md-12">
+    <div class="mb-3">
+      <label for="tool_logo_url" class="form-label">Comando de Instalación <span class="text-danger">(Requerido)</span></label>
+      <p>
+        <ul>
+          <li>
+            Si la herramienta debe instalarse usando github clone, entonces su comando de instalación sería
+            <br>
+            <code> git clone https://github.com/usuario/herramienta </code>
+          </li>
+          <li>
+            Si la herramienta debe instalarse usando go, su comando de instalación sería
+            <br>
+            <code>go install -v github.com/herramienta@latest</code>
+            <br>
+            Tenga en cuenta que el comando go get ya no es compatible con go. En su lugar, debe usar go install. <a href="https://go.dev/doc/go-get-install-deprecation"> ¡Aprenda por qué! </a>
+          </li>
+        </ul>
+      </p>
+      <label for="install_command" class="form-label">Comando de Instalación <span class="text-danger">(Requerido)</span></label>
+      {{form.install_command}}
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="mb-3">
+    <label for="tool_update" class="form-label">¿Cómo se actualiza esta herramienta? (Opcional)</label>
+    <p>
+      <ul>
+        <li>Si la herramienta se instaló usando git clone, se recomienda usar <code>git pull</code> para actualizar.</li>
+        <li>Si la herramienta se instaló usando go, se recomienda usar el mismo comando que go install.</li>
+      </ul>
+      <strong>Si no se proporciona el comando de actualización, no podrá actualizar las herramientas.</strong>
+    </p>
+    <label for="update_command" class="form-label">Comando de actualización</label>
+    {{form.update_command}}
+    {% if form.errors.update_command %}
+    <span class="text-danger">
+      {{form.errors.update_command}}
+    </span>
+    {% endif %}
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="mb-3">
+    <label for="tool_update" class="form-label">¿Cómo verifica la versión en esta herramienta? (Opcional)</label>
+    <p>
+      use este comando para verificar la versión de la herramienta y saber si hay alguna actualización disponible. La mayoría de las herramientas mostrarán la versión de alguna de estas formas
+      <ul>
+        <li>nombreherramienta -v</li>
+        <li>nombreherramienta -V</li>
+        <li>nombreherramienta --version</li>
+        <li>python nombre_herramienta.py -v</li>
+      </ul>
+      Puede proporcionar estos comandos dependiendo de su herramienta, y se identificará el número de versión.
+    </p>
+    <label for="version_lookup_command" class="form-label">Comando de Búsqueda de Versión</label>
+    <span class="text-muted">(Hemos generado esto automáticamente para usted basado en sus pasos de instalación)</span>
+    {{form.version_lookup_command}}
+    {% if form.errors.version_lookup_command %}
+    <span class="text-danger">
+      {{form.errors.version_lookup_command}}
+    </span>
+    {% endif %}
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="mb-3">
+    <label for="tool_update" class="form-label">Regex de coincidencia de versión (Opcional)</label>
+    <p>
+      necesita regex de coincidencia de versión para averiguar si hay alguna actualización disponible o no. Puede verificar cómo la herramienta muestra el número de versión y podemos generar el regex para usted, o también puede hacerlo manualmente.
+      <br>
+      <strong>Si no se proporciona el regex de versión, no podrá verificar las actualizaciones automáticamente. Sin embargo, aún puede forzar la actualización de las herramientas.</strong>
+      <br>
+      <strong>Además, también podemos generar el regex de versión para usted. Puede seleccionar cómo esta herramienta muestra el número de versión. <br>Vea cómo la herramienta nombra la versión de lanzamiento. https://github.com/usuario/herramienta/releases</strong>
+    </p>
+    <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="v1_2">v1.2 / V1.2 / 1.2</button>
+    <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="v1_2_3">v1.2.3 / V1.2.3 / 1.2.3</button>
+    <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="v1_2_3_4">v1.2.3.4 / V1.2.3.4 / 1.2.3.4</button>
+    <br>
+    <br>
+    <label for="version_match_regex" class="form-label">Regex de Versión</label>
+    {{form.version_match_regex}}
+    {% if form.errors.version_match_regex %}
+    <span class="text-danger">
+      {{form.errors.version_match_regex}}
+    </span>
+    {% endif %}
+  </div>
+  <div class="row">
+    <h5>Información Adicional de Herramienta de Recopilación de Subdominios</h5>
+    <h6 class="text-danger">Tenga en cuenta que esta herramienta de recopilación de subdominios debe admitir la salida de subdominios en forma de archivo txt.</h6>
+    <p>Ya que ha elegido esta herramienta como herramienta de recopilación de subdominios, necesitamos información adicional sobre cómo se ejecuta esta herramienta.</p>
+    <div class="">
+      <span class="font-16">
+        necesita saber cómo esta herramienta acepta el objetivo y genera los resultados de subdominios.<br>
+        <strong>Use la siguiente sintaxis donde sea necesario, pero recuerde que <code>{TARGET}</code> y <code>{OUTPUT}</code> <strong>son marcadores de posición obligatorios</strong>.</strong>
+        <ul>
+          <li><code>{TARGET}</code> (obligatorio), Use esto para el argumento de línea de comandos que toma el dominio como objetivo de entrada. Ejemplo. <code>subfinder -d {TARGET}</code></li>
+          <li><code>{OUTPUT}</code> (obligatorio), Use esto para el argumento de línea de comandos que toma el argumento de salida. Ejemplo. <code>subfinder -d {TARGET} -o {OUTPUT}</code></li>
+          <li><code>{PATH}</code>, Use esto si su herramienta está clonada de github. Ejemplo. <code>python3 {PATH}/subdomain.py</code></li>
+          <li><code>{PROXY}</code>, Use esto si su herramienta admite proxy. Ejemplo. <code>nombre_herramienta -p {PROXY}</code></li>
+        </ul>
+        Puede usar las combinaciones de la sintaxis anterior y también puede usar cualquier otro argumento de línea de comandos que su herramienta admita.
+      </span>
+    </div>
+    <div class="col-md-12">
+      <div class="mb-3">
+        {{form.subdomain_gathering_command}}
+      </div>
+    </div>
+  </div>
+</div>

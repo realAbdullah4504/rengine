@@ -1,0 +1,180 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}
+Configuración, Claves API y Configuración de Herramientas
+{% endblock title %}
+
+{% block custom_js_css_link %}
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+<li class="breadcrumb-item"><a href="#">Configuración</a></li>
+<li class="breadcrumb-item active">Configuración Específica de Herramientas</li>
+{% endblock breadcrumb_title %}
+
+{% block page_title %}
+Configuración, Claves API y Configuración de Herramientas
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+  <div class="col-xl-6 col-md-12 col-sm-12 col-12 mb-2">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Patrones GF</h4>
+        <p>
+          Esta sección le permite cargar patrones GF personalizados. Puede encontrar más información sobre la <a href="https://github.com/tomnomnom/gf" class="text-primary">Herramienta GF aquí. <i class="fe-external-link"></i></a>
+          <br>
+          <span class="text-danger">Tenga en cuenta que solo se admiten archivos json y el nombre del patrón será el nombre del archivo.</span>
+          Si el nombre del patrón es <span class="badge bg-primary m-1">remote-code-exec.json</span>, el nombre del patrón es <span class="badge bg-primary m-1">remote-code-exec</span> y esto debe usarse en la configuración YAML.</span>
+        </p>
+        <h4 class="header-title">Patrones GF disponibles actualmente</h4>
+        {% for pattern in gf_patterns %}
+        {% if not forloop.first %}
+        <span class="btn btn-soft-primary rounded-pill btn-sm m-1 bs-tooltip" data-toggle="tooltip" data-placement="top" title="Clic para Ver Patrón" onclick="load_gf_template('{{pattern}}')">{{pattern}}</span>
+        {% endif %}
+        {% endfor %}
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="mb-3 mb-xl-0">
+            <label for="gfFileUpload" class="form-label">Subir Patrón GF JSON</label>
+            <small class="text-muted">(Se pueden subir múltiples archivos.)</small>
+            <input class="form-control" type="file" id="gfFileUpload" accept=".json" name="gfFileUpload[]" multiple>
+          </div>
+          <input type="submit" class="btn btn-primary mt-3 float-end" value="Subir">
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Subfinder</h4>
+        <p>
+          Esta sección le permite modificar el archivo de configuración de <a href="https://github.com/projectdiscovery/subfinder" class="text-primary" target="_blank">Subfinder</a>. Puede encontrar más información sobre la <a href="https://github.com/projectdiscovery/subfinder#:~:text=An%20example%20config%20file%20-" class="text-primary" target="_blank">configuración de Subfinder aquí.</a><br>
+          <span class="text-danger">Tenga en cuenta que solo se admite la configuración YAML.</span>
+        </p>
+        <form method="post" enctype="multipart/form-data" id="subfinder-config-form">
+          {% csrf_token %}
+          <h4 class="header-title">Configuración Actual de Subfinder</h4>
+          <label for="subfinder_config_text_area">Doble clic en la configuración para editar.</label>
+          <textarea class="form-control" id="subfinder_config_text_area" spellcheck="false" readonly="true" name="subfinder_config_text_area"></textarea>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Amass</h4>
+        <p>
+          Esta sección le permite modificar el archivo de configuración de <a href="https://github.com/owasp-amass/amass/" class="text-primary" target="_blank">Amass</a>. Puede encontrar más información sobre la <a href="https://github.com/owasp-amass/amass/blob/master/examples/config.yaml" class="text-primary" target="_blank">configuración de Amass aquí.</a><br>
+          <span class="text-danger">Tenga en cuenta que solo se admite la configuración YAML.</span>
+        </p>
+        <form method="post" enctype="multipart/form-data" id="amass-config-form">
+          {% csrf_token %}
+          <h4 class="header-title">Configuración Actual de Amass</h4>
+          <label for="amass_config_text_area">Doble clic en la configuración para editar.</label>
+          <textarea class="form-control" id="amass_config_text_area" spellcheck="false" readonly="true" name="amass_config_text_area"></textarea>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6 col-md-12 col-sm-12 col-12 mb-2">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Nuclei</h4>
+        <ul class="nav nav-tabs nav-bordered">
+          <li class="nav-item">
+            <a href="#nuclei-template" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+              Plantillas Nuclei
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#nuclei-config" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+              Archivo de Configuración Nuclei
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane show active" id="nuclei-template">
+            <p>
+              Esta sección le permite subir plantillas Nuclei. Puede encontrar más información sobre las <a href="https://nuclei.projectdiscovery.io/" class="text-primary">Plantillas Nuclei aquí.</a><br>
+              <span class="text-danger">Tenga en cuenta que solo se admiten archivos YAML y el nombre de la plantilla será el nombre del archivo.</span>
+              <br>Si el nombre de la plantilla es <span class="badge bg-primary m-1">apache-detect.yaml</span> entonces <span class="badge bg-primary m-1">apache-detect</span> debe usarse en la configuración YAML.
+            </p>
+            <h6 class="header-title">Plantillas personalizadas Nuclei disponibles actualmente</h6>
+            {% for template in nuclei_templates %}
+            {% with file=template|split:"/" %}
+            <span class="btn btn-soft-primary rounded-pill btn-sm m-1 bs-tooltip" title="Clic para Ver Plantilla" onclick="load_nuclei_template('{{file.3}}')">{{file.3}}</span>
+            {% endwith %}
+            {% empty %}
+            <div class="alert alert-danger border-0 mb-4">
+              ¡No se detectaron plantillas nuclei personalizadas!
+            </div>
+            {% endfor %}
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group mb-4 mt-3">
+                <label for="nucleiFileUpload" class="form-label">Subir Plantilla YAML Nuclei</label>
+                <small class="text-muted">(Se pueden subir múltiples archivos.)</small>
+                <input type="file" class="form-control" name="nucleiFileUpload[]" id="nucleiFileUpload" accept=".yaml,.yml" multiple>
+              </div>
+              <input type="submit" class="btn btn-primary mt-3 float-end" value="Subir">
+            </form>
+          </div>
+          <div class="tab-pane" id="nuclei-config">
+            <p>
+              Esta sección le permite configurar el archivo de configuración Nuclei. Puede encontrar más información sobre la <a href="https://github.com/projectdiscovery/nuclei" class="text-primary" target="_blank">configuración de Nuclei aquí.</a>
+            </p>
+            <form method="post" enctype="multipart/form-data" id="nuclei-config-form">
+              {% csrf_token %}
+              <h4 class="header-title">Configuración Actual de Nuclei</h4>
+              <label for="nuclei_config" class="text-primary">Doble clic en la configuración para editar.</label>
+              <textarea class="form-control" id="nuclei_config_text_area" spellcheck="false" readonly="true" name="nuclei_config_text_area"></textarea>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Naabu</h4>
+        <p>
+          Esta sección le permite modificar el archivo de configuración de <a href="https://github.com/projectdiscovery/naabu" class="text-primary" target="_blank">Naabu</a>. Puede encontrar más información sobre la <a href="https://github.com/projectdiscovery/naabu#:~:text=a%20reasonable%20amount.-,Configuration%20file,-We%20have%20added" class="text-primary" target="_blank">configuración de Naabu aquí.</a><br>
+          <span class="text-danger">Tenga en cuenta que solo se admite la configuración YAML.</span>
+        </p>
+        <form method="post" enctype="multipart/form-data" id="naabu-config-form">
+          {% csrf_token %}
+          <h4 class="header-title">Configuración Actual de Naabu</h4>
+          <label for="naabu_config_text_area">Doble clic en la configuración para editar.</label>
+          <textarea class="form-control" id="naabu_config_text_area" spellcheck="false" readonly="true" name="naabu_config_text_area"></textarea>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">theHarvester</h4>
+        <p>
+          Esta sección le permite modificar el archivo de configuración de <a href="https://github.com/laramies/theHarvester" class="text-primary" target="_blank">the Harvester</a>. Puede encontrar más información sobre la <a href="https://github.com/laramies/theHarvester/blob/master/theHarvester/data/api-keys.yaml" class="text-primary" target="_blank">configuración de the Harvester aquí.</a><br>
+          <br>
+          <span class="text-danger">Tenga en cuenta que solo se admite la configuración YAML.</span>
+        </p>
+        <form method="post" enctype="multipart/form-data" id="theharvester-config-form">
+          {% csrf_token %}
+          <h4 class="header-title">Configuración Actual de theHarvester</h4>
+          <label for="naabu_config_text_area">Doble clic en la configuración para editar.</label>
+          <textarea class="form-control" id="theharvester_config_text_area" spellcheck="false" readonly="true" name="theharvester_config_text_area"></textarea>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+
+{% block page_level_script %}
+<script src="{% static 'scanEngine/js/custom_tools.js' %}" charset="utf-8"></script>
+<script src="{% static 'custom/custom.js' %}" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+});
+</script>
+{% endblock page_level_script %}

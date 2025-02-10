@@ -1,0 +1,127 @@
+{# DO NOT AUTO INDENT #}
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block title %}
+Configuración de Hackerone
+{% endblock title %}
+
+{% block custom_js_css_link %}
+<link href="{% static 'plugins/markdown/simplemde.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock custom_js_css_link %}
+
+{% block breadcrumb_title %}
+<li class="breadcrumb-item"><a href="#">Configuración</a></li>
+<li class="breadcrumb-item active">Configuración de Informe Automático de Vulnerabilidades Hackerone</li>
+{% endblock breadcrumb_title %}
+
+{% block page_title %}
+Configuración de Informe Automático de Vulnerabilidades Hackerone
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="alert alert-danger border-0 mb-3 mt-3" role="alert">
+          ¡Use esta función con precaución! ¡Por favor, no envíe spam a los evaluadores!
+          <br>No permitimos enviar informes de vulnerabilidades de severidad baja e informativa para evitar spam a los evaluadores.
+          Puede enviarlos manualmente desde la Sección de Vulnerabilidades dentro.
+        </div>
+        <p class="mt-3">
+          Reporta Automáticamente las vulnerabilidades a sus programas de bug bounty en Hackerone, si se identifican vulnerabilidades.
+          <br>
+          <span class="text-danger">Se requiere un token API válido de Hackerone y nombre de usuario. Puede configurar las claves api desde la Sección de Bóveda API</span>
+        </p>
+        <form method="post" id="hackerone_form">
+          {% csrf_token %}
+          <h4 class="header-title mt-3">Envío Automático de Informe de Vulnerabilidades</h4>
+          <div><span class="me-2">Habilitar Envío Automático de Informe de Vulnerabilidades a Hackerone</span>{{form.send_report}}</div>
+          <h4 class="header-title mt-3">Reportar Vulnerabilidad a Hackerone cuando</h4>
+          <table>
+            <tr>
+              <td>Se encuentra Severidad Crítica. (Predeterminado)</td>
+              <td><span class="ms-3">{{form.send_critical}}</span></td>
+            </tr>
+            <tr>
+              <td>Se encuentra Severidad Alta. (Predeterminado)</td>
+              <td><span class="ms-3">{{form.send_high}}</span></td>
+            </tr>
+            <tr>
+              <td>Se encuentra Severidad Media.</td>
+              <td><span class="ms-3">{{form.send_medium}}</span></td>
+            </tr>
+          </table>
+          <h4 class="header-title mt-3">Plantilla de Informe de Vulnerabilidad</h4>
+          <div class="alert alert-info border-0 mb-3 mt-3" role="alert">
+            Puede personalizar la plantilla del informe de vulnerabilidad usando lenguaje markdown. Reemplace la siguiente sintaxis donde lo requiera. Las llaves son obligatorias.
+          </div>
+          <ul>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_name}</span> Título/Nombre de la Vulnerabilidad.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerable_url}</span> URL Vulnerable.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_severity}</span> Severidad de la Vulnerabilidad.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_description}</span> Descripción de la vulnerabilidad generada por Nuclei.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_extracted_results}</span> Resultados de Vulnerabilidad extraídos por Nuclei.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_reference}</span> Referencia Adicional a la vulnerabilidad.</li>
+          </ul>
+          {{form.report_template}}
+          <input type="submit" value="Guardar" class="btn btn-primary float-end">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}
+
+{% block page_level_script %}
+<script src="{% static 'plugins/markdown/simplemde.min.js' %}"></script>
+<script src="{% static 'custom/custom.js' %}"></script>
+<script type="text/javascript">
+
+var simplemde = new SimpleMDE({
+  element: document.getElementById("vulnerability-report-template"),
+  toolbar: ["preview", "bold", "italic", "heading", "heading-2", "unordered-list", "link" ,"|", "code" ,"|", "quote", "|", "guide"],
+  spellChecker: false,
+});
+
+simplemde.options.previewRender = function(plainText) {
+  return DOMPurify.sanitize(simplemde.markdown(plainText));
+};
+
+function handleFormInputs() {
+  const form = document.getElementById('hackerone_form');
+  const checkbox = document.getElementById('send_report');
+  const inputs = form.querySelectorAll('input:not(#send_report):not([type="submit"]):not([name="csrf_token"])');
+  
+  inputs.forEach(input => {
+    if (input.type === 'text' || input.type === 'textarea') {
+      input.readOnly = !checkbox.checked;
+    } else if (input.type !== 'hidden') {
+      input.disabled = !checkbox.checked;
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('hackerone_form');
+  const checkbox = document.getElementById('send_report');
+  
+  handleFormInputs();
+  checkbox.addEventListener('change', handleFormInputs);
+
+  form.addEventListener('submit', (event) => {
+    if (!checkbox.checked) {
+      const inputs = form.querySelectorAll('input:not(#send_report):not([type="submit"]):not([name="csrf_token"])');
+      inputs.forEach(input => {
+        input.disabled = false;
+        input.readOnly = false;
+      });
+      
+      setTimeout(() => handleFormInputs(), 0);
+    }
+  });
+});
+
+</script>
+{% endblock page_level_script %}

@@ -1,0 +1,336 @@
+- model: scanEngine.installedexternaltool
+  pk: 1
+  fields:
+    logo_url: https://raw.githubusercontent.com/projectdiscovery/subfinder/master/static/subfinder-logo.png
+    name: subfinder
+    description: Subfinder es una herramienta de descubrimiento de subdominios que encuentra subdominios válidos para sitios web utilizando fuentes en línea pasivas.
+    github_url: https://github.com/projectdiscovery/subfinder
+    license_url: https://github.com/projectdiscovery/subfinder/blob/master/LICENSE.md
+    version_lookup_command: subfinder -version
+    update_command: go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+    install_command: go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+    version_match_regex: v(\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 2
+  fields:
+    logo_url: https://raw.githubusercontent.com/projectdiscovery/nuclei/master/static/nuclei-logo.png
+    name: Nuclei
+    description: Nuclei se utiliza para enviar solicitudes a través de objetivos basados en una plantilla, lo que resulta en cero falsos positivos y proporciona un escaneo rápido en un gran número de hosts. Nuclei ofrece escaneo para una variedad de protocolos incluyendo TCP, DNS, HTTP, Archivo, etc. Con plantillas poderosas y flexibles, todo tipo de comprobaciones de seguridad pueden ser modeladas con Nuclei.
+    github_url: https://github.com/projectdiscovery/nuclei
+    license_url: https://github.com/projectdiscovery/nuclei/blob/master/LICENSE.md
+    version_lookup_command: nuclei -version
+    update_command: nuclei -update
+    install_command: go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+    version_match_regex: v(\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 3
+  fields:
+    logo_url: https://raw.githubusercontent.com/projectdiscovery/httpx/master/static/httpx-logo.png
+    name: httpx
+    description: httpx es un kit de herramientas HTTP rápido y multipropósito que permite ejecutar múltiples sondeos utilizando la biblioteca retryablehttp, está diseñado para mantener la fiabilidad de los resultados con hilos aumentados.
+    github_url: https://github.com/projectdiscovery/httpx
+    license_url: https://github.com/projectdiscovery/httpx/blob/master/LICENSE.md
+    version_lookup_command: /go/bin/httpx -version
+    update_command: go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+    install_command: go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+    version_match_regex: v(\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 4
+  fields:
+    logo_url: https://raw.githubusercontent.com/projectdiscovery/naabu/master/static/naabu-logo.png
+    name: naabu
+    description: Naabu es una herramienta de escaneo de puertos escrita en Go que permite enumerar puertos válidos para hosts de manera rápida y confiable. Es una herramienta muy simple que realiza escaneos SYN/CONNECT rápidos en el host/lista de hosts y enumera todos los puertos que devuelven una respuesta.
+    github_url: https://github.com/projectdiscovery/naabu
+    license_url: https://github.com/projectdiscovery/naabu/blob/main/LICENSE.md
+    version_lookup_command: naabu -version
+    update_command: go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
+    install_command: go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
+    version_match_regex: '(\b\d+\.\d+\.\d+\b)'
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 5
+  fields:
+    logo_url: https://raw.githubusercontent.com/osmedeus/assets/main/logo-transparent.png
+    name: gospider
+    description: Araña web rápida escrita en Go
+    github_url: https://github.com/jaeles-project/gospider
+    license_url: https://github.com/jaeles-project/gospider/blob/master/LICENSE
+    version_lookup_command: gospider --version
+    update_command: go install -v github.com/jaeles-project/gospider@latest
+    install_command: go install -v github.com/jaeles-project/gospider@latest
+    version_match_regex: v(\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 6
+  fields:
+    logo_url: https://raw.githubusercontent.com/owasp-amass/amass/master/images/amass_logo.png
+    name: amass
+    description: El Proyecto OWASP Amass realiza mapeo de redes de superficies de ataque y descubrimiento de activos externos utilizando recopilación de información de fuentes abiertas y técnicas de reconocimiento activo.
+    github_url: https://github.com/owasp-amass/amass
+    license_url: https://github.com/owasp-amass/amass/blob/master/LICENSE
+    version_lookup_command: amass -version
+    update_command: go install -v github.com/owasp-amass/amass/v4/...@latest
+    install_command: go install -v github.com/owasp-amass/amass/v4/...@latest
+    version_match_regex: v(\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 7
+  fields:
+    logo_url: https://github.com/ffuf/ffuf/raw/master/_img/ffuf_run_logo_600.png
+    name: ffuf
+    description: Un fuzzer web rápido escrito en Go.
+    github_url: https://github.com/ffuf/ffuf
+    license_url: https://github.com/ffuf/ffuf/blob/master/LICENSE
+    version_lookup_command: ffuf -V
+    update_command: go install github.com/ffuf/ffuf/v2@latest
+    install_command: ''
+    version_match_regex: (\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 8
+  fields:
+    logo_url: null
+    name: sublist3r
+    description: Sublist3r es una herramienta Python diseñada para enumerar subdominios de sitios web usando OSINT. Ayuda a los probadores de penetración y cazadores de bugs a recolectar y reunir subdominios para el dominio que están investigando. Sublist3r enumera subdominios usando varios motores de búsqueda como Google, Yahoo, Bing, Baidu y Ask. Sublist3r también enumera subdominios usando Netcraft, Virustotal, ThreatCrowd, DNSdumpster y ReverseDNS.
+    github_url: https://github.com/aboul3la/Sublist3r
+    license_url: https://github.com/aboul3la/Sublist3r/blob/master/LICENSE
+    version_lookup_command: null
+    update_command: git pull
+    install_command: git clone https://github.com/aboul3la/Sublist3r.git
+    version_match_regex: '[vV]*(\d+\.)?(\d+\.)?(\*|\d+)'
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: true
+    github_clone_path: /usr/src/github/Sublist3r
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 9
+  fields:
+    logo_url: null
+    name: hakrawler
+    description: Rastreador web rápido en golang para recopilar URLs y ubicaciones de archivos JavaScript. Esto es básicamente una implementación simple de la increíble biblioteca Gocolly.
+    github_url: https://github.com/hakluke/hakrawler
+    license_url: https://github.com/hakluke/hakrawler/blob/master/LICENSE
+    version_lookup_command: null
+    update_command: go install -v github.com/hakluke/hakrawler@latest
+    install_command: go install -v github.com/hakluke/hakrawler@latest
+    version_match_regex: '[vV]*(\d+\.)?(\d+\.)?(\*|\d+)'
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 10
+  fields:
+    logo_url: null
+    name: OneForAll
+    description: Una poderosa herramienta de integración de subdominios.
+    github_url: https://github.com/shmilylty/OneForAll
+    license_url: https://github.com/shmilylty/OneForAll/blob/master/LICENSE
+    version_lookup_command: cat /usr/src/github/OneForAll/oneforall.py
+    update_command: git pull
+    install_command: git clone https://github.com/shmilylty/OneForAll
+    version_match_regex: v\d+\.\d+\.\d+\b
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: true
+    github_clone_path: /usr/src/github/OneForAll
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 11
+  fields:
+    logo_url: https://raw.githubusercontent.com/laramies/theHarvester/master/theHarvester-logo.png
+    name: theHarvester
+    description: theHarvester es una herramienta muy simple de usar, pero poderosa y efectiva diseñada para ser utilizada en las primeras etapas de una prueba de penetración o compromiso de equipo rojo. Úsela para la recopilación de inteligencia de fuentes abiertas (OSINT) para ayudar a determinar el panorama de amenazas externas de una empresa en Internet. La herramienta recopila correos electrónicos, nombres, subdominios, IPs y URLs usando múltiples fuentes de datos públicos.
+    github_url: https://github.com/laramies/theHarvester
+    license_url: https://github.com/laramies/theHarvester/blob/master/README/LICENSES
+    version_lookup_command: cat /usr/src/github/theHarvester/theHarvester/lib/version.py
+    update_command: git pull
+    install_command: git clone https://github.com/laramies/theHarvester
+    version_match_regex: \b\d+\.\d+\.\d+\b
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: true
+    github_clone_path: /usr/src/github/theHarvester
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 12
+  fields:
+    logo_url: null
+    name: ctfr
+    description: Esta herramienta permite obtener los subdominios de un sitio web HTTPS en pocos segundos. CTFR no utiliza ni ataque de diccionario ni fuerza bruta, solo abusa de los registros de Transparencia de Certificados.
+    github_url: https://github.com/UnaPibaGeek/ctfr
+    license_url: https://github.com/UnaPibaGeek/ctfr/blob/master/LICENSE
+    version_lookup_command: python3 /usr/src/github/ctfr/ctfr.py --help
+    update_command: git pull
+    install_command: git clone https://github.com/UnaPibaGeek/ctfr/
+    version_match_regex: (\d+\.)?(\d+\.).
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: true
+    github_clone_path: /usr/src/github/ctfr
+    subdomain_gathering_command: null
+
+- model: scanEngine.installedexternaltool
+  pk: 13
+  fields:
+    logo_url: https://user-images.githubusercontent.com/8293321/174841003-01a62bad-2ecf-4874-89c4-efa53dd56884.png
+    name: tlsx
+    description: Un capturador TLS rápido y configurable enfocado en la recopilación y análisis de datos basados en TLS.
+    github_url: https://github.com/projectdiscovery/tlsx
+    license_url: https://github.com/projectdiscovery/tlsx/blob/main/LICENSE
+    version_lookup_command: tlsx -version
+    update_command: tlsx -up
+    install_command: go install -v github.com/projectdiscovery/tlsx/cmd/tlsx@latest
+    version_match_regex: (\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+- model: scanEngine.installedexternaltool
+  pk: 14
+  fields:
+    logo_url: https://avatars.githubusercontent.com/u/79084675?v=4
+    name: netlas
+    description: Non-intrusive Internet Scanner.
+    github_url: https://github.com/netlas-io/netlas-python
+    license_url: https://github.com/netlas-io/netlas-python/blob/master/LICENSE
+    version_lookup_command: pip3 show netlas
+    update_command: pip3 install netlas --update
+    install_command: pip3 install netlas
+    version_match_regex: (\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+- model: scanEngine.installedexternaltool
+  pk: 15
+  fields:
+    logo_url: https://github.githubassets.com/images/icons/emoji/unicode/1f98a.png
+    name: dalfox
+    description: DalFox is a powerful open-source tool that focuses on automation, making it ideal for quickly scanning for XSS flaws and analyzing parameters. Its advanced testing engine and niche features are designed to streamline the process of detecting and verifying vulnerabilities.
+      As for the name, Dal(달) is the Korean word for "moon," while "Fox" stands for "Finder Of XSS".
+    github_url: https://github.com/hahwul/dalfox
+    license_url: https://github.com/hahwul/dalfox/blob/main/LICENSE.txt
+    version_lookup_command: dalfox version
+    update_command: go install -v github.com/hahwul/dalfox/v2@latest
+    install_command: go install -v github.com/hahwul/dalfox/v2@latest
+    version_match_regex: v(\d+\.)?(\d+\.)?(\*|\d+)
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+- model: scanEngine.installedexternaltool
+  pk: 16
+  fields:
+    logo_url: https://user-images.githubusercontent.com/8293321/196779266-421c79d4-643a-4f73-9b54-3da379bbac09.png
+    name: katana
+    description: Un marco de rastreo y araña de próxima generación.
+    github_url: https://github.com/projectdiscovery/katana
+    license_url: https://github.com/projectdiscovery/katana/blob/main/LICENSE.md
+    version_lookup_command: katana -version
+    update_command: go install -v github.com/projectdiscovery/katana/cmd/katana@latest
+    install_command: go install -v github.com/projectdiscovery/katana/cmd/katana@latest
+    version_match_regex: 'v(\d+\.)?(\d+\.)?(\*|\d+)'
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+- model: scanEngine.installedexternaltool
+  pk: 17
+  fields:
+    logo_url: https://user-images.githubusercontent.com/25837540/90128972-fc3bdf00-dd91-11ea-8c3b-0d6f4e8c6ba3.png
+    name: crlfuzz
+    description: Una herramienta rápida para escanear la vulnerabilidad de CRLF escrita en GO
+    github_url: https://github.com/dwisiswant0/crlfuzz
+    license_url: https://github.com/dwisiswant0/crlfuzz/blob/master/README.md
+    version_lookup_command: crlfuzz -V
+    update_command: go install -v github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest
+    install_command: go install -v github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest
+    version_match_regex: '(\d+\.)?(\d+\.)?(\*|\d+)'
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+- model: scanEngine.installedexternaltool
+  pk: 18
+  fields:
+    logo_url: null
+    name: gau
+    description: Obtenga todas las URL
+    github_url: https://github.com/lc/gau
+    license_url: https://github.com/lc/gau/blob/main/LICENSE
+    version_lookup_command: gau --version
+    update_command: go install github.com/lc/gau/v2/cmd/gau@latest
+    install_command: go install github.com/lc/gau/v2/cmd/gau@latest
+    version_match_regex: '[vV]*(\d+\.)?(\d+\.)?(\*|\d+)'
+    is_default: true
+    is_subdomain_gathering: false
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null
+- model: scanEngine.installedexternaltool
+  pk: 19
+  fields:
+    logo_url: null
+    name: chaos
+    description: Vaya al cliente para comunicarse con la API del conjunto de datos Chaos de Project Discovery.
+    github_url: https://github.com/projectdiscovery/chaos-client
+    license_url: https://github.com/projectdiscovery/chaos-client/blob/main/LICENSE.md
+    version_lookup_command: chaos -version
+    update_command: chaos -up
+    install_command: go install -v github.com/projectdiscovery/chaos-client/cmd/chaos@latest
+    version_match_regex: (?i:v)?(\d+(?:\.\d+){2,})
+    is_default: true
+    is_subdomain_gathering: true
+    is_github_cloned: false
+    github_clone_path: null
+    subdomain_gathering_command: null

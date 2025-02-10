@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                {% if domain_list %}
+                <h4 class="heading-title">{{ domain_list|length }} Dominios asociados con la organización {{organization.name}}</h4> {% for domain in domain_list %}
+                <span class="badge badge-soft-primary m-1">{{domain.name}}</span> {% endfor %}
+                <br>
+                <br> {% endif %}
+                <form method="POST" id="start-scan-form">
+                    {% csrf_token %}
+                    <div id="schedule_scan_steps">
+                        <h3>Choose the scheduler</h3>
+                        <div class="">
+                            <div class="form-row">
+                                <select class="form-select" onchange="schedulerChanged(this)" name="scheduled_mode" style="line-height: 2.0;">
+                                    <option value="periodic">Exploración periódica</option>
+                                    <option value="clocked">Escaneo con reloj</option>
+                                </select>
+                            </div>
+                            <div class="tab-content" id="animateLineContent-4">
+                                <div class="tab-pane fade show active" id="periodic-div" role="tabpanel" aria-labelledby="periodic-tab-tab">
+                                    <div class="mb-4">
+                                        <h5>Ejecutar escanear cada</h5>
+                                        <div class="row">
+                                            <div class='col-4'>
+                                                <input id="t-text" type="number" name="frequency" value="30" class="form-control form-control-lg">
+                                            </div>
+                                            <div class="col-8">
+                                                <select class="form-select" name="frequency_type" style="line-height: 2.0;">
+                                                    <option value="minutes"> Minutos</option>
+                                                    <option value="hours">Horas</option>
+                                                    <option value="days">Días</option>
+                                                    <option value="weeks">Semanas</option>
+                                                    <option value="months">Meses</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="clocked-div" role="tabpanel" aria-labelledby="clocked-tab-tab">
+                                    <div class="mb-4">
+                                        <h5>Ejecutar escaneo exactamente en</h5>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group mb-0">
+                                                    <!--<input id="clockedTime" value="{% now "Y-m-d H:i" %}" class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date and time" name="scheduled_time">-->
+                                                    <input type="text" id="clockedTime" class="form-control form-control-lg flatpickr flatpickr-input active" placeholder="Select Scheduler Date and time" name="scheduled_time">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Elija el motor de escaneo</h3>
+                        <div class="">
+                            <h4>Seleccionar el motor de escaneo</h4> {% if custom_engine_count == 0 %}
+                            <div class="alert bg-soft-primary border-0 mb-4" role="alert">
+                                <span><b>¡Consejos! </b> No tiene motores de escaneo personalizados.¿Le gustaría crear su propio motor de escaneo?</span>
+                                <a href="{% url 'add_engine' current_project.slug %}" class="text-primary">Crear motor de escaneo personalizado</a>
+                            </div>
+                            {% endif %} {% include "startScan/_items/scanengine_accordion.html" %}
+                        </div>
+                        <h3>Importar/ignorar subdominios</h3>
+                        <div class="">
+                            <div class="mb-3">
+                                <h4 class="text-info">Importar subdominios (opcional)</h4>
+                                <span class="">Puedes importar subdominios para <b>{{domain.name}}</b> Uso de sus herramientas privadas de reconocimiento.</span>
+                                <br>
+                                <div class="alert bg-soft-primary border-0 mt-1 mb-1" role="alert">
+                                    <span class="">Separar los subdominios usando <b>nueva línea</b>. Si el subdominio no pertenece a <b>{{domain.name}}</b> se omitirá.</span>
+                                </div>
+                                <label for="importSubdomainFormControlTextarea" class="form-label mt-1">Lista de subdominios</label>
+                                <textarea class="form-control" id="importSubdomainFormControlTextarea" name="importSubdomainTextArea" rows="6" spellcheck="false"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="text-warning">Subdominios fuera del alcance (opcional)</h4>
+                                <p>Especificar subdominios de <strong>{{domain.name}}</strong> para excluir del escaneo.Estos subdominios se omitirán de todos los escaneos posteriores, incluidas las evaluaciones de descubrimiento y vulnerabilidad de URL.</p>
+                                <p>Ingrese un subdominio o patrón por línea.Se admiten tanto el texto plano como los patrones regex. <span class="badge bg-soft-primary text-primary ms-2">Nueva</span></p>
+                                <div class="mt-2 mb-2">
+                                <li>Para texto plano: <code>admin.example.com</code></li>
+                                <li>For regex: <code>^.*outofscope.*\.com$</code>, <code>admin.*</code> etc.</li>
+                                </div>
+                                <label for="outOfScopeSubdomainTextarea" class="form-label mt-1">Lista de subdominios fuera del alcance</label>
+                                <textarea class="form-control" id="outOfScopeSubdomainTextarea" name="outOfScopeSubdomainTextarea" rows="6" spellcheck="false" placeholder="Enter subdomains or patterns, one per line"></textarea>
+                            </div>
+                        </div>
+                        <h3>URL Alcance y exclusiones</h3>
+                        <div class="mb-4">
+                            <div class="mb-3">
+                                <h4 class="text-info">Ruta del punto de partida (opcional)</h4>
+                                <input type="email" class="form-control" id="startingPointPath" placeholder="e.g. /home" name="startingPointPath">
+                                <small class="form-text text-muted">
+                    Define dónde debe comenzar el escaneo.Deje en blanco para escanear desde la raíz (/) e incluya todos los subdominios.
+                    <br>
+                    Si se proporciona una ruta (por ejemplo, /inicio), el escaneo se centrará solo en esa ruta y sus subpats,
+                    omitiendo escaneo del subdominio.Por ejemplo, entrando '/home' para {{domain.name}}escaneará
+                    https://{{domain.name}}/home, Pero no otras partes de {{domain.name}} or its subdomains.
+                    </small>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="text-warning">Rutas excluidas (opcionales)</h4>
+                                <input type="text" id="excludedPaths" value="{{excluded_paths}}" name="excludedPaths">
+                                <small class="form-text text-muted">
+                    Ingrese rutas o patrones regex para excluir del escaneo.Escriba una ruta o patrón y presione Entrar para agregarlo.
+Admite los patrones de coincidencia de ruta exacta y regex.Ejemplos:<br>
+                    • <code>/admin</code> excluye las rutas que comienzan con '/admin'<br>
+                    • <code>/images/.*\.jpg</code>excluye todo .jpg Archivos en el directorio de imágenes<br>
+                    • <code>/static/(?:css|js)/</code> excluye todo contenido de /static/css/ and /static/js/<br>
+                    <b>Exclusiones comunes:</b><br>
+                    • Activos estáticos: <code>/images/.*</code>, <code>/css/.*</code><br>
+                    <br>
+                    <b>Nota: Use cuidadosamente los patrones regex.Si bien las exclusiones pueden acelerar los escaneos, tenga cuidado de no excluir críticas
+áreas que pueden contener vulnerabilidades.Pruebe sus patrones para asegurarse de que coincidan según lo previsto.</b>
+                    </small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
