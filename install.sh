@@ -1,5 +1,10 @@
 #!/bin/bash
 
+sudo apt-get update
+sudo apt-get install certbot
+
+sudo certbot certonly --standalone -d vulnmanagement.ateitiscorp.com
+
 usageFunction()
 {
   echo " "
