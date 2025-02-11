@@ -1098,7 +1098,7 @@ function get_http_status_badge(data) {
 function render_endpoint_in_xlmodal(endpoint_count, subdomain_name, result) {
 	// This function renders endpoints datatable in xl modal
 	// Used in Subscan results and subdomain to endpoints modal
-	$('#xl-modal-content').append(`<h5> ${endpoint_count} Puntos finales descubiertos en el subdominio ${subdomain_name}</h5>`);
+	$('#xl-modal-content').append(`<h5> ${endpoint_count} Endpoints descubiertos en el subdominio ${subdomain_name}</h5>`);
 	$('#xl-modal-content').append(`
 		<div class="">
 		<table id="endpoint-modal-datatable" class="table dt-responsive w-100">

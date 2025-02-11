@@ -73,7 +73,7 @@ Agregar o Importar Objetivos
               </div>
               <div class="col-12 mt-3">
                 <label for="targetDescription" class="form-label">Descripción del objetivo (Opcional)</label>
-                <input type="text" class="form-control form-control-lg" id="targetDescription" placeholder="Objetivo interesante" name="targetDescription">
+                <input type="text" class="form-control form-control-lg" id="targetDescription" placeholder="Descripción" name="targetDescription">
               </div>
               {% if user_preferences.bug_bounty_mode %}
               <div class="col-12 mt-3">
@@ -81,7 +81,7 @@ Agregar o Importar Objetivos
                   <br>
                   Esto se usa para enviar informes de vulnerabilidad al programa HackerOne automáticamente. El identificador del equipo se puede encontrar en la URL del programa, <a href="https://hackerone.com/team_handle">https://hackerone.com/team_handle</a>
                 </label>
-                <input type="text" class="form-control form-control-lg" id="targetH1TeamHandle" placeholder="team_handle" name="targetH1TeamHandle">
+                <input type="text" class="form-control form-control-lg" id="targetH1TeamHandle" placeholder="Identificador de equipo" name="targetH1TeamHandle">
                 <button class="btn btn-primary submit-fn mt-2 float-end" disabled type="submit" name="add-ip-target" id="add-ip-target" value="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> <span id="add_ip_target_btn">Agregar objetivo</span></button>
               </div>
               {% endif %}
@@ -98,7 +98,7 @@ Agregar o Importar Objetivos
               </div>
               <div class="col-12 mt-3">
                 <label for="targetDescription">Descripción del objetivo (Opcional)</label>
-                <input type="text" class="form-control form-control-lg" id="targetDescription" placeholder="Objetivo interesante" name="targetDescription">
+                <input type="text" class="form-control form-control-lg" id="targetDescription" placeholder="Descripción" name="targetDescription">
               </div>
               {% if user_preferences.bug_bounty_mode %}
               <div class="col-12 mt-3">
@@ -106,7 +106,7 @@ Agregar o Importar Objetivos
                   <br>
                   Esto se usa para enviar informes de vulnerabilidad al programa HackerOne automáticamente. El identificador del equipo se puede encontrar en la URL del programa, <a href="https://hackerone.com/team_handle">https://hackerone.com/team_handle</a>
                 </label>
-                <input type="text" class="form-control form-control-lg" id="targetH1TeamHandle" placeholder="team_handle" name="targetH1TeamHandle">
+                <input type="text" class="form-control form-control-lg" id="targetH1TeamHandle" placeholder="Identificador de equipo" name="targetH1TeamHandle">
               </div>
               {% endif %}
               <div class="col-12 mt-3">
@@ -170,7 +170,7 @@ Agregar o Importar Objetivos
       var text = $("#addTargets").val();
       var lines = text.split(/\r|\r\n|\n/);
       var count = lines.length;
-      add_multiple_targets_btn.innerHTML = `Add ${count} Targets`;
+      add_multiple_targets_btn.innerHTML = `Agregar ${count} objetivo`;
       if (!count) {
         add_multiple_targets_btn.disabled = true;
       }
@@ -216,8 +216,8 @@ Agregar o Importar Objetivos
               // #resolved_domains_div
               $("#all_domains_checkbox").show();
               if(Array.isArray(json_data['ip_address'])) {
-                $('#resolved_domains_div').append(`<b class='text-info'>${json_data['ip_address'].length} domains associated with IP Address ${json_data['orig']}</b></br>`);
-                $('#resolved_domains_div').append(`<b>Please select the domains to import.</b>`);
+                $('#resolved_domains_div').append(`<b class='text-info'>${json_data['ip_address'].length} dominios asociados a la Ip: ${json_data['orig']}</b></br>`);
+                $('#resolved_domains_div').append(`<b>Seleccionar dominio a importar.</b>`);
                 $('#resolved_domains_div').append(`<div id='domains_checkbox' class='mt-2 row'></div>`);
                 json_data['ip_address'].forEach((ip_info, index, array) => {
                   for (var domain in ip_info['domains']) {
@@ -239,7 +239,7 @@ Agregar o Importar Objetivos
                 var checked_count = $('.resolved_ip_domains:checked').length;
                 if (checked_count > 0) {
                   add_multiple_targets_btn.disabled = false;
-                  $('#add_ip_target_btn').html(`Add ${checked_count} Targets`);
+                  $('#add_ip_target_btn').html(`Agregar ${checked_count} objetivo`);
                 }
                 else{
                   add_multiple_targets_btn.disabled = true;
@@ -271,7 +271,7 @@ Agregar o Importar Objetivos
       $(".resolved_ip_domains").prop('checked', $(this).prop('checked'));
       document.getElementById("add-ip-target").disabled = false;
       var checked_count = $('.resolved_ip_domains:checked').length;
-      $('#add_ip_target_btn').html(`Add ${checked_count} Targets`);
+      $('#add_ip_target_btn').html(`Agregar ${checked_count} objetivo`);
     });
 
     $('#domainName').on('change keyup',function(){

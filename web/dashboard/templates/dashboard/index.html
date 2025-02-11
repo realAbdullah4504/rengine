@@ -47,12 +47,12 @@ Panel de Control
 	<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
 		<div class="card" id="tooltip-container2">
 			<div class="card-body">
-				<i class="fa fa-info-circle text-muted float-end" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Total de Puntos Finales/URLs descubiertos en todos los objetivos y subdominios"></i>
-				<h4 class="mt-0 font-16">Total de Puntos Finales</h4>
+				<i class="fa fa-info-circle text-muted float-end" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Total de Endpoints/URLs descubiertos en todos los objetivos y subdominios"></i>
+				<h4 class="mt-0 font-16">Total de Endpoints</h4>
 				<h2 class="text-primary my-3 text-center">{{endpoint_count|intcomma}}</h2>
 				<div id="endpoint_chart"></div>
 				<br>
-				<p class="text-success mb-0 mt-2"><span class="badge badge-soft-success rounded-pill float-end">Puntos Finales Activos: {{endpoint_alive_count|intcomma}}</span></p>
+				<p class="text-success mb-0 mt-2"><span class="badge badge-soft-success rounded-pill float-end">Endpoints Activos: {{endpoint_alive_count|intcomma}}</span></p>
 				<br>
 				<br>
 			</div>
@@ -61,7 +61,7 @@ Panel de Control
 	<div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
 		<div class="card" id="tooltip-container3">
 			<div class="card-body">
-				<i class="fa fa-info-circle text-muted float-end" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Total de Vulnerabilidades descubiertas en todos los objetivos, subdominios y puntos finales"></i>
+				<i class="fa fa-info-circle text-muted float-end" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Total de Vulnerabilidades descubiertas en todos los objetivos, subdominios y Endpoints"></i>
 				<h4 class="mt-0 font-16 text-danger">Total de Vulnerabilidades</h4>
 				<h2 class="text-danger my-3 text-center"><span data-plugin="counterup">{{total_vul_count|intcomma}}</span></h2>
 				<div id="vuln_chart"></div>
@@ -293,7 +293,7 @@ $(document).ready(function() {
 			opacity: .2
 		},
 		series: [{
-			name: "Puntos finales descubiertos",
+			name: "Endpoints descubiertos",
 			data: [{{endpoints_in_last_week.0}},{{endpoints_in_last_week.1}},{{endpoints_in_last_week.2}},{{endpoints_in_last_week.3}},{{endpoints_in_last_week.4}},{{endpoints_in_last_week.5}},{{endpoints_in_last_week.6}}]
 		}],
 		yaxis: {

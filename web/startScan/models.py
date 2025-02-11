@@ -189,7 +189,7 @@ class ScanHistory(models.Model):
 		minutes = (seconds % 3600) // 60
 		seconds = seconds % 60
 		if not hours and not minutes:
-			return f'{seconds} artículos de segunda clase'
+			return f'{seconds} segunda'
 		elif not hours:
 			return f'{minutes} minutos'
 		elif not minutes:

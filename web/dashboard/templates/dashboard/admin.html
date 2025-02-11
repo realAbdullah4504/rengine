@@ -78,7 +78,7 @@ Configuración de Administrador
                   {% elif muser|has_role:'auditor' %}
                     <span class="badge bg-soft-pink text-pink p-1">Auditor</span>
                   {% else %}
-                  <span class="badge bg-soft-primary text-primary p-1">Probador de Penetración</span>
+                  <span class="badge bg-soft-primary text-primary p-1">Penetration Tester</span>
                   {% endif %}
                 </th>
                 <td>{{muser.date_joined|naturaltime}}</td>
@@ -167,7 +167,7 @@ function update_user_modal(user_id, permission){
     <label for="user_role" class="form-label float-start">Rol</label>
     <select class="form-select" id="user_role">
     <option ${permission == 'sys_admin' ? 'selected': ''} value='sys_admin'>Administrador del Sistema</option>
-    <option ${permission == 'penetration_tester' ? 'selected': ''} value='penetration_tester'>Probador de Penetración</option>
+    <option ${permission == 'penetration_tester' ? 'selected': ''} value='penetration_tester'>Penetration Tester</option>
     <option ${permission == 'auditor' ? 'selected': ''} value='auditor'>Auditor</option>
     </select>
   </div>
@@ -244,13 +244,13 @@ function create_user_modal(){
     <input id="create_username" class="form-control" placeholder="Nombre de Usuario" autocomplete="off">
   </div>
   <i class="fa fa-info-circle text-muted float-end" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom" title="- Administrador del Sistema: Es un superusuario que tiene permiso para modificar configuraciones del sistema y escaneos, motores de escaneo, crear nuevos usuarios, agregar nuevas herramientas, etc. El superusuario puede iniciar escaneos y sub-escaneos sin esfuerzo.
-- Probador de Penetración: Podrá modificar e iniciar escaneos y sub-escaneos, agregar o actualizar objetivos, etc. Un probador de penetración no podrá modificar configuraciones del sistema.
+- Penetration Tester: Podrá modificar e iniciar escaneos y sub-escaneos, agregar o actualizar objetivos, etc. Un Penetration Tester no podrá modificar configuraciones del sistema.
 - Auditor: Solo puede ver y descargar el informe. Un auditor no puede cambiar ninguna configuración del sistema o relacionada con escaneos ni puede iniciar escaneos o sub-escaneos."></i>
   <div class="form mb-3">
     <label for="create_user_role" class="form-label float-start">Rol</label>
     <select class="form-select" id="create_user_role">
     <option value='sys_admin'>Administrador del Sistema</option>
-    <option value='penetration_tester'>Probador de Penetración</option>
+    <option value='penetration_tester'>Penetration Tester</option>
     <option value='auditor'>Auditor</option>
     </select>
   </div>

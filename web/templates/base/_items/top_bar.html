@@ -8,7 +8,7 @@
       <form class="app-search" method="get" action="/{{current_project.slug}}/search">
         <div class="app-search-box dropdown">
           <div class="input-group">
-            <input type="search" class="form-control" placeholder="Búsqueda Universal..." id="top-search" name="query">
+            <input type="search" class="form-control" placeholder="Busqueda..." id="top-search" name="query">
             <button class="btn input-group-text" type="submit">
               <i class="fe-search"></i>
             </button>
@@ -41,7 +41,7 @@
       {% if user|can:'modify_targets' or user|can:'modify_scan_configurations' or user|can:'modify_system_configurations' or user|can:'modify_wordlists' %}
       <li class="dropdown d-none d-xl-block">
         <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-          <i class="fe-plus me-1"></i> Añadir Rápido
+          <i class="fe-plus me-1"></i> Acceso rápido
           <i class="mdi mdi-chevron-down"></i>
         </a>
         <div class="dropdown-menu">

@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Búsqueda Universal
+Busqueda
 {% endblock title %}
 
 {% block custom_js_css_link %}
@@ -14,7 +14,7 @@ Resultados de Búsqueda
 {% endblock page_title %}
 
 {% block breadcrumb_title %}
-<li class="breadcrumb-item active">Búsqueda Universal</li>
+<li class="breadcrumb-item active">Busqueda</li>
 {% endblock breadcrumb_title %}
 
 {% block main_content %}
@@ -28,9 +28,9 @@ Resultados de Búsqueda
 							<form class="app-search" method="get" action="/{{current_project.slug}}/search">
 							<div class="input-group">
 								{% if request.GET.query %}
-								<input type="search" class="form-control" placeholder="Búsqueda Universal..." id="top-search" name="query" value="{{request.GET.query}}">
+								<input type="search" class="form-control" placeholder="Busqueda..." id="top-search" name="query" value="{{request.GET.query}}">
 								{% else %}
-								<input type="search" class="form-control" placeholder="Búsqueda Universal..." id="top-search" name="query">
+								<input type="search" class="form-control" placeholder="Busqueda..." id="top-search" name="query">
 								{% endif %}
 								<button type="submit" class="input-group-text btn waves-effect waves-light btn-primary"><i class="fa fa-search me-1"></i> Buscar</button>
 							</div>
@@ -61,7 +61,7 @@ Resultados de Búsqueda
 
 						<li class="nav-item endpoints">
 							<a href="#endpoints-tab" data-bs-toggle="tab" aria-expanded="false" class="nav-link" id="nav-item-endpoints">
-								Puntos Finales <span class="badge bg-primary ms-1" id="search-endpoints-count-badge"></span>
+								Endpoints <span class="badge bg-primary ms-1" id="search-endpoints-count-badge"></span>
 							</a>
 						</li>
 

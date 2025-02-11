@@ -46,7 +46,7 @@ function getScanStatusSidebar(project, reload) {
           Exploración
           </span>
           <span class="">
-          Comenzó ${scan_object.elapsed_time} atrás.
+          Revisión de ${scan_object.elapsed_time} atrás.
           </span>
           </p>
           <div>
@@ -224,7 +224,7 @@ function getScanStatusSidebar(project, reload) {
         content: 'Subdominios',
       });
       tippy('.badge-endpoint-count', {
-        content: 'Puntos finales',
+        content: 'Endpoints',
       });
       tippy('.badge-vuln-count', {
         content: 'Vulnerabilidades',
