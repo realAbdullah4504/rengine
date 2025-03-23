@@ -2,55 +2,59 @@
 {% load static %}
 
 {% block title %}
-Agregar Nueva Lista de Palabras
+Agregar organización
 {% endblock title %}
 
 
 {% block custom_js_css_link %}
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/select2/select2.min.css' %}">
 {% endblock custom_js_css_link %}
 
 {% block breadcrumb_title %}
-<li class="breadcrumb-item"><a href="{% url 'wordlist_list' current_project.slug %}">Lista de Palabras</a></li>
-<li class="breadcrumb-item active">Agregar Lista de Palabras</li>
+<li class="breadcrumb-item"><a href="{% url 'list_organization' current_project.slug %}">Organización</a></li>
+<li class="breadcrumb-item active">Agregar organización</li>
 {% endblock breadcrumb_title %}
 
 {% block page_title %}
-Agregar Nueva Lista de Palabras para Fuerza Bruta
+Agregar organización
 {% endblock page_title %}
+
 
 {% block main_content %}
 <div class="row">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <!-- <p>La lista de palabras se puede usar para fuerza bruta de directorios o fuerza bruta de subdominios. Las instrucciones sobre cómo usar la lista de palabras se <a href="https://rengine.wiki/usage/wordlist/">encuentran aquí <i class="fe-external-link"></i></a></p> -->
-        <form class="simple-example" method="POST" enctype="multipart/form-data">
+        <p>Organizations can be used to bundle the targets, an organization can have multiple targets. You will be able to scan the organizations just like the targets, but scanning the organization will allow you to scan all the targets within the organization together.</p>
+        <form method="POST">
           {% csrf_token %}
           <div class="row">
             <div class="col-6">
-              <label for="name" class="form-label">Nombre de la Lista de Palabras</label>
+              <label for="organizationName" class="form-label">Nombre de la organización</label>
               {{ form.name }}
-            </div>
-            <div class="col-6">
-              <label for="short_name" class="form-label">Nombre Corto</label>
-              {{ form.short_name }}
-              {% if form.errors.short_name %}
+              {% if form.errors %}
               <div class="invalid-feedback" style="display: block;">
-                {{ form.errors.short_name|striptags }}
+                {{ form.errors.name|striptags }}
               </div>
               {% endif %}
-              <p class="text-primary mt-1">Por favor, mantenga los nombres cortos sin espacios, como mi-lista o mi_lista. Los nombres cortos se usarán más tarde para hacer referencia a la lista de palabras en la configuración YAML.</p>
             </div>
-            <div>
-              <h4 class="header-title">Seleccionar el archivo de lista de palabras</h4>
-              <p class="text-primary">Su lista de palabras debe ser un archivo *.txt y las palabras deben estar separadas por una nueva línea.</p>
+            <div class="col-6">
+              <label for="organizationDescription" class="form-label">Descripción (opcional)</label>
+              {{ form.description }}
             </div>
-            <div class="custom-file mb-4">
-              <label class="form-label" for="txtFile">Elegir archivo *.txt</label>
-              {{ form.upload_file }}
+            <div class="col-12 mt-3">
+              <label for="targets" class="form-label">Seleccionar objetivos</label>
+              {{form.domains}}
+              {% if form.errors.domains %}
+              <div class="invalid-feedback text-danger" style="display: block;">
+                <p class="text-danger">
+                  {{ form.errors.domains|striptags }}
+                </p>
+              </div>
+              {% endif %}
             </div>
           </div>
-          <button class="btn btn-primary submit-fn mt-2 float-end" type="submit">Subir Lista de Palabras</button>
+          <button class="btn btn-primary submit-fn mt-2 float-end" disabled="true" type="submit">Agregar organización</button>
         </form>
       </div>
     </div>
@@ -60,23 +64,21 @@ Agregar Nueva Lista de Palabras para Fuerza Bruta
 
 
 {% block page_level_script %}
+<script src="{% static 'plugins/select2/select2.min.js' %}"></script>
 <script type="text/javascript">
-var input = document.getElementById("name");
-var shortName = document.getElementById("short_name");
-
-input.addEventListener("input", function() {
-  inputValue = document.getElementById("name").value;
-  shortName.value = inputValue.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();
-});
-
-shortName.addEventListener("input", function() {
-  inputValue = document.getElementById("short_name").value;
-  shortName.value = inputValue.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();
-});
-
-$(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
+  $(document).ready(function(){
+    // $(".tagging").select2({
+    //   tags: true,
+    // });
+    $('select').select2({closeOnSelect: false}).on("change", function(e) {
+      var counter = $(".select2-selection__choice").length;
+      if (counter) {
+        $(':input[type="submit"]').prop('disabled', false);
+      }
+      else{
+        $(':input[type="submit"]').prop('disabled', true);
+      }
+    });
+  });
 </script>
 {% endblock page_level_script %}

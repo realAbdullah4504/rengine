@@ -1914,7 +1914,7 @@ function display_whois_on_modal(response, show_add_target_btn=false) {
 
 }
 
-function mostrar_modal_agregar_objetivo_rapido() {
+function show_quick_add_target_modal() {
     $('#modal_title').html('Agregar objetivo');
     $('#modal-content').empty();
     $('#modal-content').append(`
@@ -1958,70 +1958,67 @@ function add_quick_target() {
 }
 
 
-function agregar_objetivo(nombre_dominio, h1_handle = null, descripcion = null, organizacion = null) {
-    var slug_actual = getCurrentProjectSlug();
-    
-    console.log('Agregando nuevo objetivo ' + nombre_dominio)
-    
-    const api_agregar = '/api/add/target/?format=json';
-    
-    const datos = {
-        'domain_name': nombre_dominio,
-        'h1_team_handle': h1_handle,
-        'description': descripcion,
-        'organization': organizacion,
-        'slug': slug_actual
-    };
-    
-    swal.queue([{
-        title: 'Agregar Objetivo',
-        text: `¿Desea agregar ${nombre_dominio} como objetivo?`,
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonText: 'Agregar Objetivo',
-        padding: '2em',
-        showLoaderOnConfirm: true,
-        preConfirm: function() {
-            return fetch(api_agregar, {
-                method: 'POST',
-                credentials: "same-origin",
-                headers: {
-                    'X-CSRFToken': getCookie("csrftoken"),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(datos)
-            }).then(function(response) {
-                console.log(response)
-                return response.json();
-            }).then(function(datos) {
-                console.log(datos)
-                if (datos.status) {
-                    swal.queue([{
-                        title: '¡Objetivo agregado exitosamente!',
-                        text: `¿Desea iniciar el escaneo en el nuevo objetivo?`,
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonText: 'Iniciar Escaneo',
-                        padding: '2em',
-                        showLoaderOnConfirm: true,
-                        preConfirm: function() {
-                            window.location = `/scan/${slug_actual}/start/${datos.domain_id}`;
-                        }
-                    }]);
-                } else {
-                    swal.insertQueueStep({
-                        icon: 'error',
-                        title: datos.message
-                    });
-                }
-            }).catch(function() {
-                swal.insertQueueStep({
-                    icon: 'error',
-                    title: '¡Ups! ¡No se puede agregar el objetivo!'
-                });
-            })
-        }
-    }]);
+function add_target(domain_name, h1_handle = null, description = null, organization = null) {
+	var current_slug = getCurrentProjectSlug();
+	// this function will add domain_name as target
+	console.log('Agregar nuevo objetivo ' + domain_name)
+	const add_api = '/api/add/target/?format=json';
+	const data = {
+		'domain_name': domain_name,
+		'h1_team_handle': h1_handle,
+		'description': description,
+		'organization': organization,
+		'slug': current_slug
+	};
+	swal.queue([{
+		title: 'Agregar objetivo',
+		text: `Te gustaría agregar ${domain_name} como objetivo?`,
+		icon: 'info',
+		showCancelButton: true,
+		confirmButtonText: 'Agregar objetivo',
+		padding: '2em',
+		showLoaderOnConfirm: true,
+		preConfirm: function() {
+			return fetch(add_api, {
+				method: 'POST',
+				credentials: "same-origin",
+				headers: {
+					'X-CSRFToken': getCookie("csrftoken"),
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			}).then(function(response) {
+				console.log(response)
+				return response.json();
+			}).then(function(data) {
+				console.log(data)
+				if (data.status) {
+					swal.queue([{
+						title: '¡Target agregó con éxito!',
+						text: `¿Desea iniciar el escaneo en el nuevo objetivo?`,
+						icon: 'success',
+						showCancelButton: true,
+						confirmButtonText: 'Escanear',
+						padding: '2em',
+						showLoaderOnConfirm: true,
+						preConfirm: function() {
+							window.location = `/scan/${current_slug}/start/${data.domain_id}`;
+						}
+					}]);
+				} else {
+					swal.insertQueueStep({
+						icon: 'error',
+						title: data.message
+					});
+				}
+			}).catch(function() {
+				swal.insertQueueStep({
+					icon: 'error',
+					title: '¡Ups!¡No se puede agregar Target!'
+				});
+			})
+		}
+	}]);
 }
 
 

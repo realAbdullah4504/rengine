@@ -67,9 +67,9 @@ Configuración de Administrador
                 </th>
                 <th>
                   {% if muser.get_full_name %}
-                  {{muser.get_full_name}}
+                  {{muser.get_full_name|escape}}
                   {% else %}
-                  {{muser.username}}
+                  {{muser.username|escape}}
                   {% endif %}
                 </th>
                 <th>
@@ -106,7 +106,7 @@ Configuración de Administrador
                   {% else %}
                   &nbsp;
                   {% endif %}
-                  <a href="#" onclick="update_user_modal({{muser.id}}, '{% if muser|has_role:'sys_admin' %}admin{% elif muser|has_role:'auditor'%}auditor{% elif muser|has_role:'penetration_tester'%}penetration_tester{%endif%}')" class="action-icon" id="change_user_details_btn" title="Actualizar Detalles de Usuario" data-bs-toggle="tooltip" data-bs-placement="bottom"> <i class="mdi mdi-account-edit"></i></a>
+                  <a href="#" onclick="update_user_modal({{muser.id}}, '{% if muser|has_role:'sys_admin' %}admin{% elif muser|has_role:'auditor'%}auditor{% elif muser|has_role:'penetration_tester'%}penetration_tester{%endif%}')" class="action-icon" id="change_user_details_btn" title="Actualizar los detalles del usuario" data-bs-toggle="tooltip" data-bs-placement="bottom"> <i class="mdi mdi-account-edit"></i></a>
                   {% if user != muser %}
                     <a href="#" onclick="delete_user({{muser.id}}, '{{muser.username}}')" class="action-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar Cuenta"> <i class="mdi mdi-trash-can"></i></a>
                   {% endif %}

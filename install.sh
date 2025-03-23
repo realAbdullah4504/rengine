@@ -1,10 +1,5 @@
 #!/bin/bash
 
-sudo apt-get update
-sudo apt-get install certbot
-
-sudo certbot certonly --standalone -d vulnmanagement.ateitiscorp.com
-
 usageFunction()
 {
   echo " "
@@ -23,7 +18,7 @@ tput setaf 2; echo "Changing the postgres username & password from .env is highl
 
 tput setaf 4;
 
-isNonInteractive=true
+isNonInteractive=false
 while getopts nh opt; do
    case $opt in
       n) isNonInteractive=true ;;
@@ -138,7 +133,7 @@ tput setaf 4;
 echo "#########################################################################"
 echo "Installing reNgine"
 echo "#########################################################################"
-make build && make up && tput setaf 2 && echo "reNgine is installed!!!" && failed=0 || failed=1
+make certs && make build && make up && tput setaf 2 && echo "reNgine is installed!!!" && failed=0 || failed=1
 
 if [ "${failed}" -eq 0 ]; then
   sleep 3

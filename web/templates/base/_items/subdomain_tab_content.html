@@ -22,7 +22,28 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-6 float-start">
+						{% if user|can:'initiate_scans' %}
+						<a class="disabled btn btn-soft-primary ms-2" data-button="subdomain_btns" data-toggle="tooltip" data-placement="top" title="Initiate Multiple Subscans" onclick="initiateMultipleSubscan()">
+							<i class="fe-zap"></i>
+							Initiate Subscan
+						</a>
+						{% endif %}
+						<a class="disabled btn btn-soft-info" data-button="subdomain_btns" data-toggle="tooltip" data-placement="top" title="Download Selected Subdomains" onclick="downloadSelectedSubdomains('{{history.domain.name}}')">
+							<i class="fe-download"></i>
+							Download Selected Subdomains
+						</a>
+						{% if user|can:'initiate_scans' %}
+						<a class="disabled btn btn-soft-danger" data-button="subdomain_btns" data-toggle="tooltip" data-placement="top" title="Delete Multiple Subdomains" onclick="deleteMultipleSubdomains()">
+							<i class="fe-trash"></i>
+							Delete Multiple Subdomains
+						</a>
+						{% endif %}
+						<div class="ms-2 mt-2" id="">
+							<a href="#" class="badge badge-soft-primary" id="subdomain_selected_count" onclick="uncheckSubdomains()"  data-toggle="tooltip" data-placement="top" title="Clear Subdomains"></a>
+						</div>
+					</div>
+					<div class="col-6">
 						<div class="btn-group mb-2 float-end dropstart">
 							<button class="btn btn-soft-primary dropdown-toggle ms-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="left" title="Filtrar Columnas">
 								<i class="fe-filter"></i>
@@ -77,6 +98,30 @@
 							<a class="btn btn-soft-primary ms-2 me-2" data-toggle="tooltip" data-placement="top" title="Recargar Subdominios" id="reload_subdomain_table_btn">
 								<i class="fe-refresh-cw"></i>
 							</a>
+
+							<button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="left" title="Download Subdomains">
+								<i class="fe-download"></i>
+							</button>
+							<div class="dropdown-menu" style="">
+								{% if detail_scan %}
+									<a class="dropdown-item" href="javascript:download_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}')">Download All Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_interesting_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}');">Download Interesting Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_important_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}');">Download Important Subdomains</a>
+								{% endif %}
+
+								{% if target_summary %}
+									<a class="dropdown-item" href="javascript:download_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}')">Download All Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_interesting_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}');">Download Interesting Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_important_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}');">Download Important Subdomains</a>
+								{% endif %}
+
+								{% if all_subdomains %}
+									<a class="dropdown-item" href="javascript:download_subdomains()">Download All Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_interesting_subdomains()">Download Interesting Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_important_subdomains()">Download Important Subdomains</a>
+								{% endif %}
+							</div>
+
 						</div>
 						<div class="btn-group mb-2 float-end dropstart">
 							<button class="btn btn-soft-info dropdown-toggle ms-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="left" title="Agrupación de Subdominios">
