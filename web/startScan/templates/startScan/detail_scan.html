@@ -376,7 +376,7 @@ Hallazgos de escaneo
 								<h2 class="text-danger my-3 text-center"><span data-plugin="counterup">{{total_vulnerability_count|intcomma}}</span></h2>
 								{% if total_vulnerability_count > 0 %}
 								<p class="text-muted mb-0">
-									<span class="w-title text-danger">{{critical_count}} Crítica, {{high_count}} Alta, {{medium_count}} Medio</span>
+									<span class="w-title text-critical">{{critical_count}} Crítica,</span><span class="w-title text-danger"> {{high_count}} Alta,</span><span class="w-title text-warning"> {{medium_count}} Medio</span>
 									<br>
 									<span class="w-title text-primary">{{low_count}} Bajo, {{info_count}} Información, y {{unknown_count}} Vulnerabilidades desconocidas</span>
 								</p>

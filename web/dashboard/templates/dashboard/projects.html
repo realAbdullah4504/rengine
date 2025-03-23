@@ -38,7 +38,8 @@ Todos los Proyectos
                 {% for project in projects %}
                   <tr>
                     <td>
-                      <h5 class="m-0 fw-normal">{{project.name}}</h5>
+                      <a href="/{{ project.slug }}/dashboard"><h5 class="m-0 fw-normal">{{ project.name }}</h5></a>
+
                       {% if current_project.slug == project.slug %}
                           <span class="badge bg-soft-primary text-primary mt-1">Proyecto Actual</span>
                       {% endif %}
