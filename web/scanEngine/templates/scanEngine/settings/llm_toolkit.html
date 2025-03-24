@@ -2,7 +2,7 @@
 {% load static %}
 {% load humanize %}
 {% block title %}
-Kit de Herramientas LLM
+Kit de herramientas LLM
 {% endblock title %}
 
 {% block custom_js_css_link %}
@@ -10,11 +10,11 @@ Kit de Herramientas LLM
 
 {% block breadcrumb_title %}
 <li class="breadcrumb-item"><a href="#">Configuración</a></li>
-<li class="breadcrumb-item active">Kit de Herramientas LLM</li>
+<li class="breadcrumb-item active">Kit de herramientas LLM</li>
 {% endblock breadcrumb_title %}
 
 {% block page_title %}
-Kit de Herramientas LLM (Beta)
+Kit de herramientas LLM (Beta)
 {% endblock page_title %}
 
 {% block main_content %}
@@ -22,7 +22,7 @@ Kit de Herramientas LLM (Beta)
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <b>Kit de Herramientas LLM</b> incluye la capacidad de descargar nuevos LLMs, ver modelos disponibles, eliminar modelos que ya no se necesitan y también elegir entre varios modelos.
+        <b>Kit de herramientas LLM</b> incluye la capacidad de descargar nuevos LLMs, ver modelos disponibles, eliminar modelos que ya no se necesitan y también elegir entre varios modelos.
         <br>
         <p>utiliza varios LLMs para mejorar el proceso de informes. Usando varios modelos de IA LLM, los probadores de penetración podrán generar informes detallados y perspicaces.
           <br>
@@ -58,12 +58,12 @@ Kit de Herramientas LLM (Beta)
                 <a class="dropdown-item" href="#" onClick=deleteModel('{{model.name}}')>Eliminar</a>
               {% endif %}
               {% if not model.selected %}
-                <a class="dropdown-item" href="#" onClick=selectModel('{{model.name}}')>Usar Modelo</a>
+                <a class="dropdown-item" href="#" onClick=selectModel('{{model.name}}')>Usar modelo</a>
               {% endif %}
             </div>
           </div>
           <h4 class="mt-0">
-            <span class="{% if model.selected %}text-success{% endif %}">{{model.name}} {% if model.selected %}<span class="badge bg-soft-primary text-primary ms-4">Modelo Seleccionado</span>{% endif %}</span>
+            <span class="{% if model.selected %}text-success{% endif %}">{{model.name}} {% if model.selected %}<span class="badge bg-soft-primary text-primary ms-4">Modelo seleccionado</span>{% endif %}</span>
           </h4>
           </p>
           <p class="mb-1">

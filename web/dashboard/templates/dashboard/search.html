@@ -203,7 +203,7 @@ $(document).ready(function() {
 						append_content += `<h4 class="mb-1"><span class="me-2 text-primary">${highlight_search(search_val, vuln_obj.name)}</span>${get_severity_badge(vuln_obj.severity)}</h4>`;
 
 						if (vuln_obj.http_url) {
-							append_content += `<span class="text-muted">URL Vulnerable: ${highlight_search(search_val, vuln_obj.http_url)}</span>`
+							append_content += `<span class="text-muted">Url vulnerable: ${highlight_search(search_val, vuln_obj.http_url)}</span>`
 						}
 
 						if (vuln_obj.description) {

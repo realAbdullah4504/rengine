@@ -13,27 +13,27 @@
         <form method="POST" id="start-scan-form">
           {% csrf_token %}
           <div id="select_engine">
-            <h4>Elegir Motor de Escaneo</h4>
+            <h4>Elegir motor de escaneo</h4>
             <div class="">
-              <h4>Seleccionar Motor de Escaneo</h4>
+              <h4>Seleccionar Motor de escaneo</h4>
               {% if custom_engines_count == 0 %}
               <div class="alert bg-soft-primary border-0 mb-4" role="alert">
                 <span><b>¡Consejos! </b> No tienes ningún motor de escaneo personalizado. ¿Te gustaría crear tu propio motor de escaneo?</span>
-                <a href="{% url 'add_engine' current_project.slug %}" class="text-primary">Crear Motor de Escaneo Personalizado</a>
+                <a href="{% url 'add_engine' current_project.slug %}" class="text-primary">Crear Motor de escaneo personalizado</a>
               </div>
               {% endif %}
               {% include "startScan/_items/scanengine_accordion.html" %}
             </div>
-            <h4>Importar/Ignorar Subdominios</h4>
+            <h4>Importar/Ignorar subdominios</h4>
             <div class="">
               <div class="mb-3">
-                <h4 class="text-info">Importar Subdominios (Opcional)</h4>
+                <h4 class="text-info">Importar subdominios (opcional)</h4>
                 <p>Puedes importar subdominios para <strong>{{domain.name}}</strong> descubiertos a través de tus herramientas privadas de reconocimiento.</p>
                 <br>
                 <div class="alert bg-soft-primary border-0 mt-1 mb-1" role="alert">
                   <span>Ingresa un subdominio por línea. Los subdominios que no pertenezcan a <strong>{{domain.name}}</strong> serán automáticamente omitidos.</span>
                 </div>
-                <label for="importSubdomainFormControlTextarea" class="form-label mt-1">Lista de Subdominios</label>
+                <label for="importSubdomainFormControlTextarea" class="form-label mt-1">Lista de subdominios</label>
                 {% if subdomains_in %}
                 <textarea class="form-control" id="importSubdomainFormControlTextarea" name="importSubdomainTextArea" rows="6" spellcheck="false">{% for subdomain in subdomains_in %}{{ subdomain }}{% if not forloop.last %}
 {% endif %}{% endfor %}</textarea>
@@ -42,14 +42,14 @@
                 {% endif %}
               </div>
               <div class="mb-3">
-                <h4 class="text-warning">Subdominios Fuera de Alcance (Opcional)</h4>
+                <h4 class="text-warning">Subdominios fuera de alcance (opcional)</h4>
                 <p>Especifica los subdominios de <strong>{{domain.name}}</strong> para excluir del escaneo. Estos subdominios serán omitidos de todos los escaneos posteriores, incluyendo el descubrimiento de URLs y evaluaciones de vulnerabilidades.</p>
                 <p>Ingresa un subdominio o patrón por línea. Se admiten tanto texto plano como patrones regex. <span class="badge bg-soft-primary text-primary ms-2">Nuevo</span></p>
                 <div class="mt-2 mb-2">
                   <li>Para texto plano: <code>admin.ejemplo.com</code></li>
                   <li>Para regex: <code>^.*fueradelalcance.*\.com$</code>, <code>admin.*</code> etc</li>
                 </div>
-                <label for="outOfScopeSubdomainTextarea" class="form-label mt-1">Lista de Subdominios Fuera de Alcance</label>
+                <label for="outOfScopeSubdomainTextarea" class="form-label mt-1">Lista de subdominios fuera de alcance</label>
                 {% if subdomains_out %}
                 <textarea class="form-control" id="outOfScopeSubdomainTextarea" name="outOfScopeSubdomainTextarea" rows="6" spellcheck="false">{% for subdomain in subdomains_out %}{{ subdomain }}{% if not forloop.last %}
 {% endif %}{% endfor %}</textarea>
@@ -59,10 +59,10 @@
               </div>
             </div>
 
-            <h4>Alcance de URL y Exclusiones</h4>
+            <h4>Alcance de url y exclusiones</h4>
             <div class="mb-4">
               <div class="mb-3">
-                <h4 class="text-info">Ruta de Punto de Inicio (Opcional)</h4>
+                <h4 class="text-info">Ruta de punto de inicio (opcional)</h4>
                 {% if starting_point_path %}
                   <input type="email" class="form-control" id="startingPointPath" placeholder="ej. /inicio" name="startingPointPath" value="{{starting_point_path}}">
                 {% else %}

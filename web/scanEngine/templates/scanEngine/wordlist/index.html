@@ -9,12 +9,12 @@ Lista de Palabras
 {% endblock custom_js_css_link %}
 
 {% block breadcrumb_title %}
-<li class="breadcrumb-item"><a href="{% url 'wordlist_list' current_project.slug %}">Lista de Palabras</a></li>
-<li class="breadcrumb-item active">Todas las Listas de Palabras</li>
+<li class="breadcrumb-item"><a href="{% url 'wordlist_list' current_project.slug %}">Lista de palabras</a></li>
+<li class="breadcrumb-item active">Todas las listas de palabras</li>
 {% endblock breadcrumb_title %}
 
 {% block page_title %}
-Agregar Nueva Lista de Palabras
+Agregar nueva lista de palabras
 {% endblock page_title %}
 
 {% block main_content %}
@@ -26,7 +26,7 @@ Agregar Nueva Lista de Palabras
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
           </div>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-            <a class="btn btn-soft-primary float-end ms-1" href="{% url 'add_wordlist' current_project.slug %}" data-toggle="tooltip" data-placement="top" title="Agregar Nueva Lista de Palabras">Agregar Nueva Lista de Palabras</a>
+            <a class="btn btn-soft-primary float-end ms-1" href="{% url 'add_wordlist' current_project.slug %}" data-toggle="tooltip" data-placement="top" title="Agregar nueva lista de palabras">Agregar nueva lista de palabras</a>
           </div>
         </div>
       </div>
@@ -39,9 +39,9 @@ Agregar Nueva Lista de Palabras
       <table id="wordlist_table" class="table dt-responsive w-100">
         <thead>
           <tr>
-            <th>Nombre de Lista</th>
-            <th>Nombre Corto</th>
-            <th>Cantidad de Palabras</th>
+            <th>Nombre de lista</th>
+            <th>Nombre corto</th>
+            <th>Cantidad de palabras</th>
             <th class="text-center">Acción</th>
           </tr>
         </thead>

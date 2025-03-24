@@ -1735,10 +1735,10 @@ function detect_subdomain_cms(http_url, http_status){
 	if (http_status != 200 || http_status == 0) {
 		Swal.fire({
 			showCancelButton: true,
-			title: 'Detect CMS',
+			title: 'Detectar CMS',
 			text: message,
 			icon: 'warning',
-			confirmButtonText: 'Detect CMS',
+			confirmButtonText: 'Detectar CMS',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				cms_detector_api_call(http_url);

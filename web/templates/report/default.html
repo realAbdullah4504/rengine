@@ -963,45 +963,45 @@
                   {% endif %}
                 </h4>
                 <!-- show vulnerability classification -->
-                <span class="mini-heading">Vulnerability Source: {{vulnerability.source|upper}}</span><br>
+                <span class="mini-heading">Fuente de vulnerabilidad: {{vulnerability.source|upper}}</span><br>
                 {% if vulnerability.cvss_metrics or vulnerability.cvss_score or vulnerability.cve_ids.all or vulnerability.cve_ids.all %}
-                  <span class="mini-heading">Vulnerability Classification</span><br>
+                  <span class="mini-heading">Clasificación de vulnerabilidad</span><br>
                   {% if vulnerability.cvss_metrics %}
-                    <span class="mini-heading ml-8">CVSS Metrics: {{vulnerability.cvss_metrics}}</span>
+                    <span class="mini-heading ml-8">Métricas CVSS: {{vulnerability.cvss_metrics}}</span>
                   {% endif %}
                   {% if vulnerability.cvss_score %}
                   <br>
-                    <span class="mini-heading ml-8">CVSS Score:</span>&nbsp;<span class="high-color">{{vulnerability.cvss_score}}</span>
+                    <span class="mini-heading ml-8">Puntuación CVSS:</span>&nbsp;<span class="high-color">{{vulnerability.cvss_score}}</span>
                   {% endif %}
                   {% if vulnerability.cve_ids.all %}
                   <br>
-                  <span class="mini-heading ml-8">CVE IDs</span><br>
+                  <span class="mini-heading ml-8">CVE IDS</span><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;{% for cve in vulnerability.cve_ids.all %} {{cve}}{% if not forloop.last %}, {% endif %} {% endfor %}
                   {% endif %}
                   {% if vulnerability.cwe_ids.all %}
                   <br>
-                  <span class="mini-heading ml-8">CWE IDs</span><br>
+                  <span class="mini-heading ml-8">CWE IDS</span><br>
                     &nbsp;&nbsp;&nbsp;&nbsp;{% for cwe in vulnerability.cwe_ids.all %} {{cwe}}{% if not forloop.last %}, {% endif %} {% endfor %}
                   {% endif %}
                   <br>
                 {% endif %}
                 {% if vulnerability.description %}
                   <br>
-                  <span class="mini-heading">Description</span><br>
+                  <span class="mini-heading">Descripción</span><br>
                   {{vulnerability.description|linebreaks}}
                 {% endif %}
                 {% if vulnerability.impact %}
                   <br>
-                  <span class="mini-heading">Impact</span><br>
+                  <span class="mini-heading">Impacto</span><br>
                   {{vulnerability.impact|linebreaks}}
                 {% endif %}
                 {% if vulnerability.remediation %}
                   <br>
-                  <span class="mini-heading">Remediation</span><br>
+                  <span class="mini-heading">Remediación</span><br>
                   {{vulnerability.remediation|linebreaks}}
                 {% endif %}
                 <br>
-                <span class="mini-heading">Vulnerable URL(s)</span><br>
+                <span class="mini-heading">Url vulnerable(s)</span><br>
                 <ul>
                     <li class="text-blue"><a href="{{vulnerability.http_url}}" target="_blank" rel="noopener noreferrer">{{vulnerability.http_url}}</a></li>
                 </ul>

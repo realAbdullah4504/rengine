@@ -4,7 +4,7 @@
 			<div class="search-input" id="endpoint-search-input">
 				<a href="" target="_blank" hidden></a>
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Filtrar Endpoints" aria-label="Filtrar Endpoints" id="endpoints-search">
+					<input type="text" class="form-control" placeholder="Filtrar endpoints" aria-label="Filtrar endpoints" id="endpoints-search">
 					<div class="input-group-append">
 						<button id="endpoint-search-button" class="btn btn-primary" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Buscar</button>
 					</div>
@@ -29,30 +29,30 @@
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="radio" id="endpoint_page_title_grouping" name="grouping_endpoint_row" class="form-check-input" value="page_title">
-										<label class="form-check-label" for="endpoint_page_title_grouping">Título de Página</label>
+										<label class="form-check-label" for="endpoint_page_title_grouping">Título de página</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="radio" id="endpoint_http_status_grouping" name="grouping_endpoint_row" class="form-check-input" value="http_status">
-										<label class="form-check-label" for="endpoint_http_status_grouping">Estado HTTP</label>
+										<label class="form-check-label" for="endpoint_http_status_grouping">Estado http</label>
 									</div>
 								</div>
 							</div>
-							<button class="btn btn-soft-primary dropdown-toggle ms-1 me-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="left" title="Filtrar Columnas">
+							<button class="btn btn-soft-primary dropdown-toggle ms-1 me-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="left" title="Filtrar columnas">
 								<i class="fe-filter"></i>
 							</button>
 							<div class="dropdown-menu" style="">
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="end_http_status_filter_checkbox" name="end_http_status_filter_checkbox" checked>
-										<label class="form-check-label" for="end_http_status_filter_checkbox">Estado HTTP</label>
+										<label class="form-check-label" for="end_http_status_filter_checkbox">Estado http</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="end_page_title_filter_checkbox" name="end_page_title_filter_checkbox" checked>
-										<label class="form-check-label" for="end_page_title_filter_checkbox">Título de Página</label>
+										<label class="form-check-label" for="end_page_title_filter_checkbox">Título de página</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
@@ -64,19 +64,19 @@
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="end_content_type_filter_checkbox" name="end_content_type_filter_checkbox" checked>
-										<label class="form-check-label" for="end_ports_filter_checkbox">Tipo de Contenido</label>
+										<label class="form-check-label" for="end_ports_filter_checkbox">Tipo de contenido</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="end_content_length_filter_checkbox" name="end_content_length_filter_checkbox" checked>
-										<label class="form-check-label" for="end_content_length_filter_checkbox">Longitud de Contenido</label>
+										<label class="form-check-label" for="end_content_length_filter_checkbox">Longitud de contenido</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="end_response_time_filter_checkbox" name="end_response_time_filter_checkbox" checked>
-										<label class="form-check-label" for="end_response_time_filter_checkbox">Tiempo de Respuesta</label>
+										<label class="form-check-label" for="end_response_time_filter_checkbox">Tiempo de respuesta</label>
 									</div>
 								</div>
 							</div>
@@ -85,11 +85,11 @@
 							</button>
 							<div class="dropdown-menu" style="">
 								{% if detail_scan %}
-									<a class="dropdown-item" href="javascript:download_endpoints({{scan_history_id}}, '{{history.domain.name}}')">Descargar Todos los Endpoints</a>
+									<a class="dropdown-item" href="javascript:download_endpoints({{scan_history_id}}, '{{history.domain.name}}')">Descargar todos los endpoints</a>
 									{% if 'fetch_url' in history.tasks and history.used_gf_patterns%}
 										{% for key,value in matched_gf_count.items %}
 											{% if value > 0 %}
-												<a class="dropdown-item" href="javascript:download_endpoints({{scan_history_id}}, '{{history.domain.name}}', '{{key}}')">Descargar Endpoints con patrón {{key|upper}}</a>
+												<a class="dropdown-item" href="javascript:download_endpoints({{scan_history_id}}, '{{history.domain.name}}', '{{key}}')">Descargar endpoints con patrón {{key|upper}}</a>
 											{% endif %}
 										{% endfor %}
 									{% endif %}
@@ -100,7 +100,7 @@
 								{% endif %}
 
 								{% if all_endpoints %}
-									<a class="dropdown-item" href="javascript:download_endpoints()">Descargar Todos los Endpoints</a>
+									<a class="dropdown-item" href="javascript:download_endpoints()">Descargar Todos los endpoints</a>
 								{% endif %}
 							</div>
 						</div>
@@ -110,15 +110,15 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>URL HTTP</th>
+									<th>Url http</th>
 									<th>Estado</th>
-									<th>Título de Página</th>
+									<th>Título de página</th>
 									<th>Etiquetas</th>
-									<th>Tipo de Contenido</th>
-									<th>Longitud de Contenido</th>
+									<th>Tipo de contenido</th>
+									<th>Longitud de contenido</th>
 									<th>Tecnología</th>
-									<th>Servidor Web</th>
-									<th>Tiempo de Respuesta</th>
+									<th>Servidor web</th>
+									<th>Tiempo de respuesta</th>
 								</tr>
 							</thead>
 						</table>

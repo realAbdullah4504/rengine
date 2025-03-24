@@ -27,12 +27,12 @@
               <div class="arrow-down"></div>
             </a>
             <div class="dropdown-menu" aria-labelledby="topnav-history">
-              <a href="{% url 'scan_history' current_project.slug %}" class="dropdown-item">Historial de Escaneos</a>
-              <a href="{% url 'subscan_history' current_project.slug %}" class="dropdown-item">Historial de Sub-escaneos</a>
-              <a href="{% url 'scheduled_scan_view' current_project.slug %}" class="dropdown-item">Escaneos Programados</a>
+              <a href="{% url 'scan_history' current_project.slug %}" class="dropdown-item">Historial de escaneos</a>
+              <a href="{% url 'subscan_history' current_project.slug %}" class="dropdown-item">Historial de sub-escaneos</a>
+              <a href="{% url 'scheduled_scan_view' current_project.slug %}" class="dropdown-item">Escaneos programados</a>
               <div class="dropdown-divider"></div>
-              <a href="{% url 'all_subdomains' current_project.slug %}" class="dropdown-item">Todos los Subdominios</a>
-              <a href="{% url 'all_endpoints' current_project.slug %}" class="dropdown-item">Todos los Endpoints</a>
+              <a href="{% url 'all_subdomains' current_project.slug %}" class="dropdown-item">Todos los subdominios</a>
+              <a href="{% url 'all_endpoints' current_project.slug %}" class="dropdown-item">Todos los endpoints</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -53,25 +53,25 @@
           <li class="nav-item dropdown {{scan_engine_nav_active}}">
             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-scanengine" role="button"
               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fe-cpu me-1"></i> Motor de Escaneo
+              <i class="fe-cpu me-1"></i> Motor de escaneo
               <div class="arrow-down"></div>
             </a>
             <div class="dropdown-menu" aria-labelledby="topnav-scanengine">
               {% if user|can:'modify_scan_configurations' %}
-              <a href="{% url 'scan_engine_index' current_project.slug %}" class="dropdown-item">Motores de Escaneo</a>
+              <a href="{% url 'scan_engine_index' current_project.slug %}" class="dropdown-item">Motores de escaneo</a>
               {% endif %}
               {% if user|can:'modify_wordlists' %}
-              <a href="{% url 'wordlist_list' current_project.slug %}" class="dropdown-item">Listas de Palabras</a>
+              <a href="{% url 'wordlist_list' current_project.slug %}" class="dropdown-item">Listas de palabras</a>
               {% endif %}
               {% if user|can:'modify_interesting_lookup' %}
-              <a href="{% url 'interesting_lookup' current_project.slug %}" class="dropdown-item">Búsqueda Interesante</a>
+              <a href="{% url 'interesting_lookup' current_project.slug %}" class="dropdown-item">Búsqueda interesante</a>
               {% endif %}
             </div>
           </li>
           {% if user_preferences.bug_bounty_mode %}
             <li class="nav-item dropdown {{bountyhub_active}}">
               <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-bountyhub" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fe-command me-1"></i> Centro de Recompensas
+                <i class="fe-command me-1"></i> Centro de recompensas
                 <div class="arrow-down"></div>
               </a>
               <ul class="dropdown-menu" aria-labelledby="bountyHubDropdown">
@@ -81,10 +81,10 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="hackerOneDropdown">
                     <li><a class="dropdown-item" href="{% url 'list_bountyhub_programs' current_project.slug %}">
-                      <i class="fe-life-buoy me-1"></i> Panel de Programas
+                      <i class="fe-life-buoy me-1"></i> Panel de programas
                     </a></li>
                     <li><a class="dropdown-item" href="#" onclick="handleSyncBookmarkedProgramsSwal()">
-                      <i class="fe-refresh-cw me-1"></i> Sincronizar Programas Marcados
+                      <i class="fe-refresh-cw me-1"></i> Sincronizar programas marcados
                     </a></li>
                   </ul>
                 </li>
@@ -100,24 +100,24 @@
             <div class="dropdown-menu" aria-labelledby="topnav-settings">
               {% if user|can:'modify_scan_configurations' %}
               <a href="{% url 'proxy_settings' current_project.slug %}" class="dropdown-item">Proxies</a>
-              <a href="{% url 'tool_settings' current_project.slug %}" class="dropdown-item">Configuración de Herramientas</a>
+              <a href="{% url 'tool_settings' current_project.slug %}" class="dropdown-item">Configuración de herramientas</a>
               {% endif %}
               {% if user|can:'modify_system_configurations' %}
               <a href="{% url 'api_vault' current_project.slug %}" class="dropdown-item">Bóveda de APIs</a>
               <a href="{% url 'llm_toolkit' current_project.slug %}" class="dropdown-item">Kit de LLM</a>
-              <a href="{% url 'tool_arsenal' current_project.slug %}" class="dropdown-item">Arsenal de Herramientas</a>
+              <a href="{% url 'tool_arsenal' current_project.slug %}" class="dropdown-item">Arsenal de herramientas</a>
               {% endif %}
               {% if user|can:'modify_scan_report' %}
-              <a href="{% url 'report_settings' current_project.slug %}" class="dropdown-item">Configuración de Informes</a>
+              <a href="{% url 'report_settings' current_project.slug %}" class="dropdown-item">Configuración de informes</a>
               {% endif %}
               <!-- {% if user|can:'modify_system_configurations' %} -->
               <!-- <a href="{% url 'rengine_settings' current_project.slug %}" class="dropdown-item">Configuración</a> -->
               <!-- {% endif %} -->
               {% if user|can:'modify_scan_configurations' %}
                 {% if user_preferences.bug_bounty_mode %}
-                  <a href="{% url 'hackerone_settings' current_project.slug %}" class="dropdown-item">Configuración de Hackerone</a>
+                  <a href="{% url 'hackerone_settings' current_project.slug %}" class="dropdown-item">Configuración de hackerone</a>
                 {% endif %}
-              <a href="{% url 'notification_settings' current_project.slug %}" class="dropdown-item">Configuración de Notificaciones</a>
+              <a href="{% url 'notification_settings' current_project.slug %}" class="dropdown-item">Configuración de notificaciones</a>
               {% endif %}
             </div>
           </li>

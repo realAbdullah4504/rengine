@@ -176,10 +176,10 @@ function get_recon_notes(target_id, scan_id){
         mark_important = ''
         if (note['is_important']) {
           important_badge = `<i class="fe-alert-triangle text-danger me-1"></i>&nbsp;`;
-          mark_important = `<a class="dropdown-item" onclick="change_todo_priority(${note['id']}, 0)">Mark UnImportant</a>`;
+          mark_important = `<a class="dropdown-item" onclick="change_todo_priority(${note['id']}, 0)">Mark sin importancia</a>`;
         }
         else{
-          mark_important = `<a class="dropdown-item" onclick="change_todo_priority(${note['id']}, 1)">Mark Important</a>`;
+          mark_important = `<a class="dropdown-item" onclick="change_todo_priority(${note['id']}, 1)">Marca importante</a>`;
         }
         $(`#todo_list_${target_id}`).append(`<div id="todo_parent_${note['id']}">
         <div class="d-flex align-items-start">

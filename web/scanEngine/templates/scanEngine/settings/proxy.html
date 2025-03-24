@@ -2,7 +2,7 @@
 {% load static %}
 {% load custom_tags %}
 {% block title %}
-Configuración de Proxy
+Configuración de proxy
 {% endblock title %}
 
 {% block custom_js_css_link %}
@@ -10,11 +10,11 @@ Configuración de Proxy
 
 {% block breadcrumb_title %}
 <li class="breadcrumb-item"><a href="#">Configuración</a></li>
-<li class="breadcrumb-item active">Configuración de Proxy</li>
+<li class="breadcrumb-item active">Configuración de proxy</li>
 {% endblock breadcrumb_title %}
 
 {% block page_title %}
-Configuración de Proxy
+Configuración de proxy
 {% endblock page_title %}
 
 {% block main_content %}
@@ -22,7 +22,7 @@ Configuración de Proxy
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="header-title">Configuración de Proxy</h4>
+        <h4 class="header-title">Configuración de proxy</h4>
         <p>Cada sitio web tiene un límite de cierto número de solicitudes permitidas durante un período de tiempo desde una dirección IP particular. Exceder el límite bloqueará cualquier solicitud entrante desde esa dirección IP durante un período específico.
           Esto resulta en resultados de reconocimiento poco fiables. Por ejemplo, si ejecuta Nuclei en un objetivo particular con todas las plantillas, es probable que su IP sea bloqueada debido a la cantidad de solicitudes realizadas por Nuclei.
           <br>
@@ -35,13 +35,13 @@ Configuración de Proxy
           {% csrf_token %}
           <div class="form-check mb-2 form-check-primary">
             {{form.use_proxy}}
-            <label class="form-check-label" for="use_proxy">Usar Proxy</label>
+            <label class="form-check-label" for="use_proxy">Usar proxy</label>
           </div>
-          <h4 class="header-title">Lista de Proxies</h4>
+          <h4 class="header-title">Lista de proxies</h4>
           <p>Puede ingresar tantos proxies como desee <span class="text-primary">seleccionará aleatoriamente</span> uno de ellos durante el escaneo.</p>
           <label class="form-label" for="proxies">Separe los proxies con una nueva línea.</label>
           {{form.proxies}}
-          <button type="submit" class="btn btn-primary mt-3 float-end">Guardar Proxies</button>
+          <button type="submit" class="btn btn-primary mt-3 float-end">Guardar proxies</button>
         </form>
       </div>
     </div>

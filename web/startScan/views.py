@@ -297,7 +297,7 @@ def start_scan_ui(request, slug, domain_id):
         messages.add_message(
             request,
             messages.INFO,
-            f'Scan Started for {domain.name}')
+            f'Escaneo iniciado para {domain.name}')
         return HttpResponseRedirect(reverse('scan_history', kwargs={'slug': slug}))
 
     # GET request
@@ -395,7 +395,7 @@ def start_multiple_scan(request, slug):
             messages.add_message(
                 request,
                 messages.INFO,
-                'Scan Started for multiple targets')
+                'Escaneo iniciado para múltiples objetivos')
 
             return HttpResponseRedirect(reverse('scan_history', kwargs={'slug': slug}))
 
@@ -825,7 +825,7 @@ def start_organization_scan(request, id, slug):
         messages.add_message(
             request,
             messages.INFO,
-            f'Scan Started for {ndomains} domains in organization {organization.name}')
+            f'Escaneo iniciado para {ndomains} Dominios en la organización {organization.name}')
         return HttpResponseRedirect(reverse('scan_history', kwargs={'slug': slug}))
 
     # GET request

@@ -2,7 +2,7 @@
 {% load static %}
 {% load custom_tags %}
 {% block title %}
-Configuración, Claves API y Configuración de Herramientas
+Configuración, Claves API y configuración de herramientas
 {% endblock title %}
 
 {% block custom_js_css_link %}
@@ -10,11 +10,11 @@ Configuración, Claves API y Configuración de Herramientas
 
 {% block breadcrumb_title %}
 <li class="breadcrumb-item"><a href="#">Configuración</a></li>
-<li class="breadcrumb-item active">Configuración Específica de Herramientas</li>
+<li class="breadcrumb-item active">Configuración específica de herramientas</li>
 {% endblock breadcrumb_title %}
 
 {% block page_title %}
-Configuración, Claves API y Configuración de Herramientas
+Configuración, Claves API y configuración de herramientas
 {% endblock page_title %}
 
 {% block main_content %}
@@ -38,7 +38,7 @@ Configuración, Claves API y Configuración de Herramientas
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="mb-3 mb-xl-0">
-            <label for="gfFileUpload" class="form-label">Subir Patrón GF JSON</label>
+            <label for="gfFileUpload" class="form-label">Subir patrón GF JSON</label>
             <small class="text-muted">(Se pueden subir múltiples archivos.)</small>
             <input class="form-control" type="file" id="gfFileUpload" accept=".json" name="gfFileUpload[]" multiple>
           </div>
@@ -55,7 +55,7 @@ Configuración, Claves API y Configuración de Herramientas
         </p>
         <form method="post" enctype="multipart/form-data" id="subfinder-config-form">
           {% csrf_token %}
-          <h4 class="header-title">Configuración Actual de Subfinder</h4>
+          <h4 class="header-title">Configuración Actual de subfinder</h4>
           <label for="subfinder_config_text_area">Doble clic en la configuración para editar.</label>
           <textarea class="form-control" id="subfinder_config_text_area" spellcheck="false" readonly="true" name="subfinder_config_text_area"></textarea>
         </form>
@@ -70,7 +70,7 @@ Configuración, Claves API y Configuración de Herramientas
         </p>
         <form method="post" enctype="multipart/form-data" id="amass-config-form">
           {% csrf_token %}
-          <h4 class="header-title">Configuración Actual de Amass</h4>
+          <h4 class="header-title">Configuración actual de amass</h4>
           <label for="amass_config_text_area">Doble clic en la configuración para editar.</label>
           <textarea class="form-control" id="amass_config_text_area" spellcheck="false" readonly="true" name="amass_config_text_area"></textarea>
         </form>
@@ -84,23 +84,23 @@ Configuración, Claves API y Configuración de Herramientas
         <ul class="nav nav-tabs nav-bordered">
           <li class="nav-item">
             <a href="#nuclei-template" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
-              Plantillas Nuclei
+              Plantillas nuclei
             </a>
           </li>
           <li class="nav-item">
             <a href="#nuclei-config" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
-              Archivo de Configuración Nuclei
+              Archivo de configuración nuclei
             </a>
           </li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane show active" id="nuclei-template">
             <p>
-              Esta sección le permite subir plantillas Nuclei. Puede encontrar más información sobre las <a href="https://nuclei.projectdiscovery.io/" class="text-primary">Plantillas Nuclei aquí.</a><br>
+              Esta sección le permite subir plantillas Nuclei. Puede encontrar más información sobre las <a href="https://nuclei.projectdiscovery.io/" class="text-primary">Plantillas nuclei aquí.</a><br>
               <span class="text-danger">Tenga en cuenta que solo se admiten archivos YAML y el nombre de la plantilla será el nombre del archivo.</span>
               <br>Si el nombre de la plantilla es <span class="badge bg-primary m-1">apache-detect.yaml</span> entonces <span class="badge bg-primary m-1">apache-detect</span> debe usarse en la configuración YAML.
             </p>
-            <h6 class="header-title">Plantillas personalizadas Nuclei disponibles actualmente</h6>
+            <h6 class="header-title">Plantillas personalizadas nuclei disponibles actualmente</h6>
             {% for template in nuclei_templates %}
             {% with file=template|split:"/" %}
             <span class="btn btn-soft-primary rounded-pill btn-sm m-1 bs-tooltip" title="Clic para Ver Plantilla" onclick="load_nuclei_template('{{file.3}}')">{{file.3}}</span>
@@ -113,7 +113,7 @@ Configuración, Claves API y Configuración de Herramientas
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-group mb-4 mt-3">
-                <label for="nucleiFileUpload" class="form-label">Subir Plantilla YAML Nuclei</label>
+                <label for="nucleiFileUpload" class="form-label">Subir plantilla yaml nuclei</label>
                 <small class="text-muted">(Se pueden subir múltiples archivos.)</small>
                 <input type="file" class="form-control" name="nucleiFileUpload[]" id="nucleiFileUpload" accept=".yaml,.yml" multiple>
               </div>
@@ -126,7 +126,7 @@ Configuración, Claves API y Configuración de Herramientas
             </p>
             <form method="post" enctype="multipart/form-data" id="nuclei-config-form">
               {% csrf_token %}
-              <h4 class="header-title">Configuración Actual de Nuclei</h4>
+              <h4 class="header-title">Configuración actual de nuclei</h4>
               <label for="nuclei_config" class="text-primary">Doble clic en la configuración para editar.</label>
               <textarea class="form-control" id="nuclei_config_text_area" spellcheck="false" readonly="true" name="nuclei_config_text_area"></textarea>
             </form>
@@ -143,7 +143,7 @@ Configuración, Claves API y Configuración de Herramientas
         </p>
         <form method="post" enctype="multipart/form-data" id="naabu-config-form">
           {% csrf_token %}
-          <h4 class="header-title">Configuración Actual de Naabu</h4>
+          <h4 class="header-title">Configuración actual de naabu</h4>
           <label for="naabu_config_text_area">Doble clic en la configuración para editar.</label>
           <textarea class="form-control" id="naabu_config_text_area" spellcheck="false" readonly="true" name="naabu_config_text_area"></textarea>
         </form>
@@ -151,15 +151,15 @@ Configuración, Claves API y Configuración de Herramientas
     </div>
     <div class="card">
       <div class="card-body">
-        <h4 class="header-title">theHarvester</h4>
+        <h4 class="header-title">theharvester</h4>
         <p>
           Esta sección le permite modificar el archivo de configuración de <a href="https://github.com/laramies/theHarvester" class="text-primary" target="_blank">the Harvester</a>. Puede encontrar más información sobre la <a href="https://github.com/laramies/theHarvester/blob/master/theHarvester/data/api-keys.yaml" class="text-primary" target="_blank">configuración de the Harvester aquí.</a><br>
           <br>
-          <span class="text-danger">Tenga en cuenta que solo se admite la configuración YAML.</span>
+          <span class="text-danger">Tenga en cuenta que solo se admite la configuración yaml.</span>
         </p>
         <form method="post" enctype="multipart/form-data" id="theharvester-config-form">
           {% csrf_token %}
-          <h4 class="header-title">Configuración Actual de theHarvester</h4>
+          <h4 class="header-title">Configuración actual de theharvester</h4>
           <label for="naabu_config_text_area">Doble clic en la configuración para editar.</label>
           <textarea class="form-control" id="theharvester_config_text_area" spellcheck="false" readonly="true" name="theharvester_config_text_area"></textarea>
         </form>

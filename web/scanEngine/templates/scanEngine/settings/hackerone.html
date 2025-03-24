@@ -12,11 +12,11 @@ Configuración de Hackerone
 
 {% block breadcrumb_title %}
 <li class="breadcrumb-item"><a href="#">Configuración</a></li>
-<li class="breadcrumb-item active">Configuración de Informe Automático de Vulnerabilidades Hackerone</li>
+<li class="breadcrumb-item active">Configuración de informe automático de vulnerabilidades hackerone</li>
 {% endblock breadcrumb_title %}
 
 {% block page_title %}
-Configuración de Informe Automático de Vulnerabilidades Hackerone
+Configuración de informe automático de vulnerabilidades hackerone
 {% endblock page_title %}
 
 {% block main_content %}
@@ -36,33 +36,33 @@ Configuración de Informe Automático de Vulnerabilidades Hackerone
         </p>
         <form method="post" id="hackerone_form">
           {% csrf_token %}
-          <h4 class="header-title mt-3">Envío Automático de Informe de Vulnerabilidades</h4>
-          <div><span class="me-2">Habilitar Envío Automático de Informe de Vulnerabilidades a Hackerone</span>{{form.send_report}}</div>
-          <h4 class="header-title mt-3">Reportar Vulnerabilidad a Hackerone cuando</h4>
+          <h4 class="header-title mt-3">Envío automático de informe de vulnerabilidades</h4>
+          <div><span class="me-2">Habilitar envío automático de informe de vulnerabilidades a hackerone</span>{{form.send_report}}</div>
+          <h4 class="header-title mt-3">Reportar vulnerabilidad a hackerone cuando</h4>
           <table>
             <tr>
-              <td>Se encuentra Severidad Crítica. (Predeterminado)</td>
+              <td>Se encuentra severidad crítica. (predeterminado)</td>
               <td><span class="ms-3">{{form.send_critical}}</span></td>
             </tr>
             <tr>
-              <td>Se encuentra Severidad Alta. (Predeterminado)</td>
+              <td>Se encuentra severidad alta. (predeterminado)</td>
               <td><span class="ms-3">{{form.send_high}}</span></td>
             </tr>
             <tr>
-              <td>Se encuentra Severidad Media.</td>
+              <td>Se encuentra severidad media.</td>
               <td><span class="ms-3">{{form.send_medium}}</span></td>
             </tr>
           </table>
-          <h4 class="header-title mt-3">Plantilla de Informe de Vulnerabilidad</h4>
+          <h4 class="header-title mt-3">Plantilla de informe de vulnerabilidad</h4>
           <div class="alert alert-info border-0 mb-3 mt-3" role="alert">
             Puede personalizar la plantilla del informe de vulnerabilidad usando lenguaje markdown. Reemplace la siguiente sintaxis donde lo requiera. Las llaves son obligatorias.
           </div>
           <ul>
-            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_name}</span> Título/Nombre de la Vulnerabilidad.</li>
-            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerable_url}</span> URL Vulnerable.</li>
-            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_severity}</span> Severidad de la Vulnerabilidad.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_name}</span> Título/Nombre de la vulnerabilidad.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerable_url}</span> Url vulnerable.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_severity}</span> Severidad de la vulnerabilidad.</li>
             <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_description}</span> Descripción de la vulnerabilidad generada por Nuclei.</li>
-            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_extracted_results}</span> Resultados de Vulnerabilidad extraídos por Nuclei.</li>
+            <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_extracted_results}</span> Resultados de vulnerabilidad extraídos por Nuclei.</li>
             <li class="text-dark"><span class="badge bg-primary mt-2">{vulnerability_reference}</span> Referencia Adicional a la vulnerabilidad.</li>
           </ul>
           {{form.report_template}}

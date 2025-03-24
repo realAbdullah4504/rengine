@@ -1557,7 +1557,7 @@ class CMSDetector(APIView):
 
 			_, output = run_command(cms_detector_command, remove_ansi_sequence=True)
 
-			response['message'] = 'Could not detect CMS!'
+			response['message'] = '¡No pudo detectar CMS!'
 
 			parsed_url = urlparse(url)
 

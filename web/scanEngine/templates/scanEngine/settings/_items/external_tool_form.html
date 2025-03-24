@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <div class="mb-3">
-    <label for="tool_name" class="form-label">Nombre de la Herramienta <span class="text-danger">(Requerido)</span></label>
+    <label for="tool_name" class="form-label">Nombre de la herramienta <span class="text-danger">(Requerido)</span></label>
     {{form.name}}
     {% if form.errors.name %}
     <span class="text-danger">
@@ -11,7 +11,7 @@
 </div>
 <div class="col-md-12">
   <div class="mb-3">
-    <label for="tool_category" class="form-label">Categoría de la Herramienta</label>
+    <label for="tool_category" class="form-label">Categoría de la herramienta</label>
     <br>
     <span class="me-4">¿Esta herramienta recopila subdominios?</span>
     <label class="switch s-icons s-outline s-outline-info">
@@ -37,13 +37,13 @@
 </div>
 <div class="col-md-6">
   <div class="mb-3">
-    <label for="tool_logo_url" class="form-label">Logo de la Herramienta (URL) <span class="text-muted">(Opcional)</span></label>
+    <label for="tool_logo_url" class="form-label">Logo de la herramienta (URL) <span class="text-muted">(Opcional)</span></label>
     {{form.logo_url}}
   </div>
 </div>
 <div class="col-md-6">
   <div class="mb-3">
-    <label for="license_url" class="form-label">URL de Licencia de la Herramienta <span class="text-muted">(Opcional)</span></label>
+    <label for="license_url" class="form-label">URL de licencia de la herramienta <span class="text-muted">(Opcional)</span></label>
     {{form.license_url}}
   </div>
 </div>
@@ -53,12 +53,12 @@
     {{form.description}}
   </div>
 </div>
-<h5>Proceso de Instalación de la Herramienta</h5>
+<h5>Proceso de instalación de la Herramienta</h5>
 <div class="row">
   <p class="text-danger">Tenga en cuenta que cualquier comando aquí se ejecutará directamente en el shell, así que tenga cuidado con los comandos que está utilizando.</p>
   <div class="col-md-12">
     <div class="mb-3">
-      <label for="tool_logo_url" class="form-label">Comando de Instalación <span class="text-danger">(Requerido)</span></label>
+      <label for="tool_logo_url" class="form-label">Comando de instalación <span class="text-danger">(Requerido)</span></label>
       <p>
         <ul>
           <li>
@@ -75,7 +75,7 @@
           </li>
         </ul>
       </p>
-      <label for="install_command" class="form-label">Comando de Instalación <span class="text-danger">(Requerido)</span></label>
+      <label for="install_command" class="form-label">Comando de instalación <span class="text-danger">(Requerido)</span></label>
       {{form.install_command}}
     </div>
   </div>
@@ -112,7 +112,7 @@
       </ul>
       Puede proporcionar estos comandos dependiendo de su herramienta, y se identificará el número de versión.
     </p>
-    <label for="version_lookup_command" class="form-label">Comando de Búsqueda de Versión</label>
+    <label for="version_lookup_command" class="form-label">Comando de búsqueda de versión</label>
     <span class="text-muted">(Hemos generado esto automáticamente para usted basado en sus pasos de instalación)</span>
     {{form.version_lookup_command}}
     {% if form.errors.version_lookup_command %}
@@ -137,7 +137,7 @@
     <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="v1_2_3_4">v1.2.3.4 / V1.2.3.4 / 1.2.3.4</button>
     <br>
     <br>
-    <label for="version_match_regex" class="form-label">Regex de Versión</label>
+    <label for="version_match_regex" class="form-label">Regex de versión</label>
     {{form.version_match_regex}}
     {% if form.errors.version_match_regex %}
     <span class="text-danger">
@@ -146,7 +146,7 @@
     {% endif %}
   </div>
   <div class="row">
-    <h5>Información Adicional de Herramienta de Recopilación de Subdominios</h5>
+    <h5>Información adicional de herramienta de recopilación de subdominios</h5>
     <h6 class="text-danger">Tenga en cuenta que esta herramienta de recopilación de subdominios debe admitir la salida de subdominios en forma de archivo txt.</h6>
     <p>Ya que ha elegido esta herramienta como herramienta de recopilación de subdominios, necesitamos información adicional sobre cómo se ejecuta esta herramienta.</p>
     <div class="">

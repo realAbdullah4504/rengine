@@ -132,9 +132,9 @@ function deleteScheduledScan(id) {
 
 function change_scheduled_task_status(id, checkbox) {
 	if (checkbox.checked) {
-		text_msg = 'Schedule Scan Started';
+		text_msg = 'El escaneo de programación comenzó';
 	} else {
-		text_msg = 'Schedule Scan Stopped';
+		text_msg = 'El escaneo de programación se detuvo';
 	}
 	Snackbar.show({
 		text: text_msg,
@@ -1920,27 +1920,27 @@ function show_quick_add_target_modal() {
     $('#modal-content').append(`
         Si desea agregar IP/CIDRs, múltiples dominios, por favor <a href="/target/add/target">haga clic aquí.</a>
         <div class="mb-3">
-            <label for="target_name_modal" class="form-label">Nombre del Objetivo</label>
+            <label for="target_name_modal" class="form-label">Nombre del objetivo</label>
             <input class="form-control" type="text" id="target_name_modal" required="" placeholder="tudominio.com">
         </div>
 
         <div class="mb-3">
             <label for="target_description_modal" class="form-label">Descripción (Opcional)</label>
-            <input class="form-control" type="text" id="target_description_modal" required="" placeholder="Descripción del Objetivo">
+            <input class="form-control" type="text" id="target_description_modal" required="" placeholder="Descripción del objetivo">
         </div>
        
         <div class="mb-3">
-            <label for="h1_handle_modal" class="form-label">Identificador del Equipo en Hackerone (Opcional)</label>
+            <label for="h1_handle_modal" class="form-label">Identificador del equipo en hackerone (Opcional)</label>
             <input class="form-control" type="text" id="h1_handle_modal" placeholder="hackerone.com/identificador_equipo, Solo ingrese identificador_equipo después de /">
         </div>
 
         <div class="mb-3">
-            <label for="target_organization_modal" class="form-label">Organización del Objetivo (Opcional)</label>
-            <input class="form-control" type="text" id="target_organization_modal" placeholder="Organización del Objetivo">
+            <label for="target_organization_modal" class="form-label">Organización del objetivo (Opcional)</label>
+            <input class="form-control" type="text" id="target_organization_modal" placeholder="Organización del objetivo">
         </div>
 
         <div class="mb-3 text-center">
-            <button class="btn btn-primary float-end" type="submit" id="add_target_modal" onclick="add_quick_target()">Agregar Objetivo</button>
+            <button class="btn btn-primary float-end" type="submit" id="add_target_modal" onclick="add_quick_target()">Agregar objetivo</button>
         </div>
     `);
     $('#modal_dialog').modal('show');
@@ -2014,7 +2014,7 @@ function add_target(domain_name, h1_handle = null, description = null, organizat
 			}).catch(function() {
 				swal.insertQueueStep({
 					icon: 'error',
-					title: '¡Ups!¡No se puede agregar Target!'
+					title: '¡Ups!¡No se puede agregar target!'
 				});
 			})
 		}
@@ -3485,7 +3485,7 @@ async function test_hackerone() {
 
 function handleSyncBookmarkedProgramsSwal() {
 	Swal.fire({
-		title: 'Sync Bookmarked Programs',
+		title: 'Sincronización de programas marcados',
 		html: `
 			<p>¿Estás seguro de que quieres sincronizar tus programas de hackerone marcadores?</p>
 			<p class="text-muted">Este proceso se ejecutará en segundo plano y puede llevar algún tiempo.</p>
@@ -3516,7 +3516,7 @@ function handleSyncBookmarkedProgramsSwal() {
 				Swal.fire({
 					title: 'Sync Process Initiated',
 					html: `
-						<p>El proceso de sincronización para sus programas de Hackerone marcados ha comenzado.</p>
+						<p>El proceso de sincronización para sus programas de hackerone marcados ha comenzado.</p>
 						<p>Recibirá notificaciones sobre el progreso y la finalización del proceso de sincronización.</p>
 					`,
 					icon: 'info',

@@ -19,7 +19,7 @@ function toolbox_lookup_whois(){
 		get_domain_whois(domain, show_add_target_btn=true);
 	}
 	else{
-		swal.fire("Error!", 'Please enter the domain/IP Address!', "warning", {
+		swal.fire("¡Error!", '¡Ingrese la dirección de dominio/IP!', "warning", {
 			button: "Okay",
 		});
 	}
@@ -27,7 +27,7 @@ function toolbox_lookup_whois(){
 
 
 function cms_detector(){
-	$('#modal_title').html('Detect CMS');
+	$('#modal_title').html('Detectar CMS');
 	$('#modal-content').empty();
 	$('#modal-content').append(`
 		<div class="mb-1">
@@ -36,7 +36,7 @@ function cms_detector(){
 		</div>
 		<small class="mb-3 float-end text-muted">(reNgine uses <a href="https://github.com/Tuhinshubhra/CMSeeK" target="_blank">CMSeeK</a> to detect CMS.)</span>
 		<div class="mt-3 mb-3 text-center">
-			<button class="btn btn-primary float-end" type="submit" id="detect_cms_submit_btn">Detect CMS</button>
+			<button class="btn btn-primary float-end" type="submit" id="detect_cms_submit_btn">Detectar CMS</button>
 		</div>
 	`);
 	$('#modal_dialog').modal('show');
@@ -58,8 +58,8 @@ $(document).on('click', '#detect_cms_submit_btn', function(){
 function cms_detector_api_call(url){
 	var api_url = `/api/tools/cms_detector/?format=json&url=${url}`
 	Swal.fire({
-		title: `Detecting CMS`,
-		text: `reNgine is detecting CMS on ${url} and this may take a while. Please wait...`,
+		title: `Detección de CMS`,
+		text: `detectar CMS en ${url} Y esto puede llevar un tiempo.Espere por favor...`,
 		allowOutsideClick: false
 	});
 	swal.showLoading();
@@ -300,8 +300,8 @@ function waf_detector_api_call(url){
 		if (response.status) {
 			swal.close()
 			Swal.fire({
-				title: 'WAF Detected!',
-				text: `${url} is running ${response.results}`,
+				title: 'WAF detectada!',
+				text: `${url} está corriendo ${response.results}`,
 				icon: 'info'
 			});
 		} else {

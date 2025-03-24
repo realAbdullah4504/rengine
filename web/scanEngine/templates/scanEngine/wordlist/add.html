@@ -15,7 +15,7 @@ Agregar Nueva Lista de Palabras
 {% endblock breadcrumb_title %}
 
 {% block page_title %}
-Agregar Nueva Lista de Palabras para Fuerza Bruta
+Agregar nueva lista de palabras para fuerza bruta
 {% endblock page_title %}
 
 {% block main_content %}
@@ -28,11 +28,11 @@ Agregar Nueva Lista de Palabras para Fuerza Bruta
           {% csrf_token %}
           <div class="row">
             <div class="col-6">
-              <label for="name" class="form-label">Nombre de la Lista</label>
+              <label for="name" class="form-label">Nombre de la lista</label>
               {{ form.name }}
             </div>
             <div class="col-6">
-              <label for="short_name" class="form-label">Nombre Corto</label>
+              <label for="short_name" class="form-label">Nombre corto</label>
               {{ form.short_name }}
               {% if form.errors.short_name %}
               <div class="invalid-feedback" style="display: block;">
@@ -50,7 +50,7 @@ Agregar Nueva Lista de Palabras para Fuerza Bruta
               {{ form.upload_file }}
             </div>
           </div>
-          <button class="btn btn-primary submit-fn mt-2 float-end" type="submit">Subir Lista de Palabras</button>
+          <button class="btn btn-primary submit-fn mt-2 float-end" type="submit">Subir Lista de palabras</button>
         </form>
       </div>
     </div>

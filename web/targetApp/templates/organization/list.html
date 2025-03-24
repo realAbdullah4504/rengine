@@ -29,7 +29,7 @@ Organizaciones
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             {% if user|can:'modify_targets' %}
             <a class="btn btn-soft-danger float-end disabled ms-1" href="#" onclick="deleteMultipleOrganizations()" id="delete_multiple_button">Eliminar múltiples organizaciones</a>
-            <a class="btn btn-soft-primary float-end ms-1" href="{% url 'add_organization' current_project.slug %}" data-toggle="tooltip" data-placement="top" title="Agregar Organización">Agregar Nueva Organización</a>
+            <a class="btn btn-soft-primary float-end ms-1" href="{% url 'add_organization' current_project.slug %}" data-toggle="tooltip" data-placement="top" title="Agregar organización">Agregar nueva organización</a>
             {% endif %}
           </div>
         </div>
@@ -50,7 +50,7 @@ Organizaciones
             </th>
             <th class="">Organización</th>
             <th class="text-center">Descripción</th>
-            <th class="text-center">Total de Objetivos</th>
+            <th class="text-center">Total de objetivos</th>
             <th class="text-center">Agregado</th>
             <th class="text-center">Acción</th>
           </tr>

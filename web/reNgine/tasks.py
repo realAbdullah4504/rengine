@@ -3700,10 +3700,10 @@ def parse_dalfox_result(line):
 	"""
 
 	description = ''
-	description += f" Evidence: {line.get('evidence')} <br>" if line.get('evidence') else ''
-	description += f" Message: {line.get('message')} <br>" if line.get('message') else ''
-	description += f" Payload: {line.get('message_str')} <br>" if line.get('message_str') else ''
-	description += f" Vulnerable Parameter: {line.get('param')} <br>" if line.get('param') else ''
+	description += f" Evidencia: {line.get('evidence')} <br>" if line.get('evidence') else ''
+	description += f" Mensaje: {line.get('message')} <br>" if line.get('message') else ''
+	description += f" Carga útil: {line.get('message_str')} <br>" if line.get('message_str') else ''
+	description += f" Parámetro vulnerable: {line.get('param')} <br>" if line.get('param') else ''
 
 	return {
 		'name': 'XSS (Cross Site Scripting)',

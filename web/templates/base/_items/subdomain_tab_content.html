@@ -6,7 +6,7 @@
 			<div class="search-input">
 				<a href="" target="_blank" hidden></a>
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Filtrar Subdominios" aria-label="Filtrar Subdominios" id="subdomains-search">
+					<input type="text" class="form-control" placeholder="Filtrar subdominios" aria-label="Filtrar subdominios" id="subdomains-search">
 					<div class="input-group-append">
 						<button id="subdomain-search-button" class="btn btn-primary" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> Buscar</button>
 					</div>
@@ -26,17 +26,17 @@
 						{% if user|can:'initiate_scans' %}
 						<a class="disabled btn btn-soft-primary ms-2" data-button="subdomain_btns" data-toggle="tooltip" data-placement="top" title="Initiate Multiple Subscans" onclick="initiateMultipleSubscan()">
 							<i class="fe-zap"></i>
-							Initiate Subscan
+							Iniciar subscan
 						</a>
 						{% endif %}
 						<a class="disabled btn btn-soft-info" data-button="subdomain_btns" data-toggle="tooltip" data-placement="top" title="Download Selected Subdomains" onclick="downloadSelectedSubdomains('{{history.domain.name}}')">
 							<i class="fe-download"></i>
-							Download Selected Subdomains
+							Descargar subdominios seleccionados
 						</a>
 						{% if user|can:'initiate_scans' %}
 						<a class="disabled btn btn-soft-danger" data-button="subdomain_btns" data-toggle="tooltip" data-placement="top" title="Delete Multiple Subdomains" onclick="deleteMultipleSubdomains()">
 							<i class="fe-trash"></i>
-							Delete Multiple Subdomains
+							Eliminar múltiples subdominios
 						</a>
 						{% endif %}
 						<div class="ms-2 mt-2" id="">
@@ -52,19 +52,19 @@
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="sub_http_status_filter_checkbox" name="sub_http_status_filter_checkbox" checked>
-										<label class="form-check-label" for="http_status_filter_checkbox">Estado HTTP</label>
+										<label class="form-check-label" for="http_status_filter_checkbox">Estado http</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="sub_page_title_filter_checkbox" name="sub_page_title_filter_checkbox" checked>
-										<label class="form-check-label" for="page_title_filter_checkbox">Título de Página</label>
+										<label class="form-check-label" for="page_title_filter_checkbox">Título de página</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="sub_ip_filter_checkbox" name="sub_ip_filter_checkbox" checked>
-										<label class="form-check-label" for="ip_filter_checkbox">Dirección IP</label>
+										<label class="form-check-label" for="ip_filter_checkbox">Dirección ip</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
@@ -76,19 +76,19 @@
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="sub_content_length_filter_checkbox" name="sub_content_length_filter_checkbox" checked>
-										<label class="form-check-label" for="content_length_filter_checkbox">Longitud de Contenido</label>
+										<label class="form-check-label" for="content_length_filter_checkbox">Longitud de contenido</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="sub_response_time_filter_checkbox" name="sub_response_time_filter_checkbox" checked>
-										<label class="form-check-label" for="response_time_filter_checkbox">Tiempo de Respuesta</label>
+										<label class="form-check-label" for="response_time_filter_checkbox">Tiempo de respuesta</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" id="sub_screenshot_filter_checkbox" name="sub_screenshot_filter_checkbox" checked>
-										<label class="form-check-label" for="sub_screenshot_filter_checkbox">Captura de Pantalla</label>
+										<label class="form-check-label" for="sub_screenshot_filter_checkbox">Captura de pantalla</label>
 									</div>
 								</div>
 							</div>
@@ -104,21 +104,21 @@
 							</button>
 							<div class="dropdown-menu" style="">
 								{% if detail_scan %}
-									<a class="dropdown-item" href="javascript:download_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}')">Download All Subdomains</a>
-									<a class="dropdown-item" href="javascript:download_interesting_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}');">Download Interesting Subdomains</a>
-									<a class="dropdown-item" href="javascript:download_important_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}');">Download Important Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}')">Descargar todos los subdominios</a>
+									<a class="dropdown-item" href="javascript:download_interesting_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}');">Descargar subdominios interesantes</a>
+									<a class="dropdown-item" href="javascript:download_important_subdomains(scan_id={{scan_history_id}}, domain_id=null, domain_name='{{history.domain.name}}');">Descargar subdominios importantes</a>
 								{% endif %}
 
 								{% if target_summary %}
-									<a class="dropdown-item" href="javascript:download_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}')">Download All Subdomains</a>
-									<a class="dropdown-item" href="javascript:download_interesting_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}');">Download Interesting Subdomains</a>
-									<a class="dropdown-item" href="javascript:download_important_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}');">Download Important Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}')">Descargar todos los subdominios</a>
+									<a class="dropdown-item" href="javascript:download_interesting_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}');">Descargar subdominios interesantes</a>
+									<a class="dropdown-item" href="javascript:download_important_subdomains(scan_id=null, domain_id={{target.id}}, domain_name='{{target.name}}');">Descargar subdominios importantes</a>
 								{% endif %}
 
 								{% if all_subdomains %}
-									<a class="dropdown-item" href="javascript:download_subdomains()">Download All Subdomains</a>
-									<a class="dropdown-item" href="javascript:download_interesting_subdomains()">Download Interesting Subdomains</a>
-									<a class="dropdown-item" href="javascript:download_important_subdomains()">Download Important Subdomains</a>
+									<a class="dropdown-item" href="javascript:download_subdomains()">Descargar todos los subdominios</a>
+									<a class="dropdown-item" href="javascript:download_interesting_subdomains()">Descargar subdominios interesantes</a>
+									<a class="dropdown-item" href="javascript:download_important_subdomains()">Descargar subdominios importantes</a>
 								{% endif %}
 							</div>
 
@@ -131,13 +131,13 @@
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="radio" id="subdomain_page_title_grouping" name="grouping_subd_row" class="form-check-input" value="page_title">
-										<label class="form-check-label" for="subdomain_page_title_grouping">Título de Página</label>
+										<label class="form-check-label" for="subdomain_page_title_grouping">Título de página</label>
 									</div>
 								</div>
 								<div class="dropdown-item">
 									<div class="form-check">
 										<input type="radio" id="subdomain_http_status_grouping" name="grouping_subd_row" class="form-check-input" value="http_status">
-										<label class="form-check-label" for="subdomain_http_status_grouping">Estado HTTP</label>
+										<label class="form-check-label" for="subdomain_http_status_grouping">Estado http</label>
 									</div>
 								</div>
 							</div>
@@ -155,25 +155,25 @@
 									<th class="text-center">Título</th>
 									<th class="text-center">IP</th>
 									<th class="text-center">Puertos</th>
-									<th class="text-center">Longitud de Contenido</th>
-									<th class="text-center">Captura de Pantalla</th>
-									<th class="text-center">Tiempo de Respuesta</th>
+									<th class="text-center">Longitud de contenido</th>
+									<th class="text-center">Captura de pantalla</th>
+									<th class="text-center">Tiempo de respuesta</th>
 									<th>Tecnología</th>
 									<th>Revisado</th>
-									<th>URL HTTP</th>
+									<th>Url http</th>
 									<th>CNAME</th>
-									<th>Es Interesante</th>
+									<th>Es interesante</th>
 									<th>Info</th>
 									<th>Bajo</th>
 									<th>Medio</th>
 									<th>Alto</th>
 									<th>Crítico</th>
 									<th>Tareas</th>
-									<th>Es Importante</th>
-									<th>Servidor Web</th>
+									<th>Es importante</th>
+									<th>Servidor web</th>
 									<th>Acción</th>
-									<th>Cantidad de Directorios</th>
-									<th>Cantidad de Sub-escaneos</th>
+									<th>Cantidad de directorios</th>
+									<th>Cantidad de sub-escaneos</th>
 								</tr>
 							</thead>
 						</table>

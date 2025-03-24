@@ -540,7 +540,7 @@ def get_cms_details(url):
 	os.system(cms_detector_command)
 
 	response['status'] = False
-	response['message'] = 'Could not detect CMS!'
+	response['message'] = '¡No pudo detectar CMS!'
 
 	parsed_url = urlparse(url)
 
