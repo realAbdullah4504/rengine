@@ -118,7 +118,7 @@ RUN pip3 install --no-cache-dir fuzzywuzzy \
     python-Levenshtein \
     pyvirtualdisplay \
     netaddr
-RUN pip install debugpy
+# RUN pip install debugpy
 
 # Copy source code
 COPY . /usr/src/app/
