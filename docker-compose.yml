@@ -48,6 +48,7 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - MAX_CONCURRENCY=${MAX_CONCURRENCY}
       - MIN_CONCURRENCY=${MIN_CONCURRENCY}
+      - SCRAPE_API_TOKEN=${SCRAPE_API_TOKEN}
     depends_on:
       - db
       - redis

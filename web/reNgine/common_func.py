@@ -12,6 +12,7 @@ import redis
 import requests
 import tldextract
 import xmltodict
+import urllib.parse
 
 from time import sleep
 from bs4 import BeautifulSoup
@@ -947,44 +948,133 @@ def xml2json(xml):
 	return xmltodict.parse(xml_content)
 
 
-def reverse_whois(lookup_keyword):
-	domains = []
-	'''
-		This function will use viewdns to fetch reverse whois info
-		Input: lookup keyword like email or registrar name
-		Returns a list of domains as string.
-	'''
-	logger.info(f'Querying reverse whois for {lookup_keyword}')
-	url = f"https://viewdns.info:443/reversewhois/?q={lookup_keyword}"
-	headers = {
-		"Sec-Ch-Ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"104\"",
-		"Sec-Ch-Ua-Mobile": "?0",
-		"Sec-Ch-Ua-Platform": "\"Linux\"",
-		"Upgrade-Insecure-Requests": "1",
-		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
-		"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-		"Sec-Fetch-Site": "same-origin",
-		"Sec-Fetch-Mode": "navigate",
-		"Sec-Fetch-User": "?1",
-		"Sec-Fetch-Dest": "document",
-		"Referer": "https://viewdns.info/",
-		"Accept-Encoding": "gzip, deflate",
-		"Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"
-	}
-	response = requests.get(url, headers=headers)
-	soup = BeautifulSoup(response.content, 'lxml')
-	table = soup.find("table", {"border" : "1"})
-	try:
-		for row in table or []:
-			dom = row.findAll('td')[0].getText()
-			# created_on = row.findAll('td')[1].getText() TODO: add this in 3.0
-			if dom == 'Domain Name':
-				continue
-			domains.append(dom)
-	except Exception as e:
-		logger.error(f'Error while fetching reverse whois info: {e}')
-	return domains
+# def reverse_whois(lookup_keyword):
+# 	domains = []
+# 	'''
+# 		This function will use viewdns to fetch reverse whois info
+# 		Input: lookup keyword like email or registrar name
+# 		Returns a list of domains as string.
+# 	'''
+# 	logger.info(f'Querying reverse whois for {lookup_keyword}')
+# 	url = f"https://viewdns.info:443/reversewhois/?q={lookup_keyword}"
+# 	headers = {
+# 		"Sec-Ch-Ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"104\"",
+# 		"Sec-Ch-Ua-Mobile": "?0",
+# 		"Sec-Ch-Ua-Platform": "\"Linux\"",
+# 		"Upgrade-Insecure-Requests": "1",
+# 		"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
+# 		"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+# 		"Sec-Fetch-Site": "same-origin",
+# 		"Sec-Fetch-Mode": "navigate",
+# 		"Sec-Fetch-User": "?1",
+# 		"Sec-Fetch-Dest": "document",
+# 		"Referer": "https://viewdns.info/",
+# 		"Accept-Encoding": "gzip, deflate",
+# 		"Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"
+# 	}
+# 	response = requests.get(url, headers=headers)
+# 	soup = BeautifulSoup(response.content, 'lxml')
+# 	table = soup.find("table", {"border" : "1"})
+# 	try:
+# 		for row in table or []:
+# 			dom = row.findAll('td')[0].getText()
+# 			# created_on = row.findAll('td')[1].getText() TODO: add this in 3.0
+# 			if dom == 'Domain Name':
+# 				continue
+# 			domains.append(dom)
+# 	except Exception as e:
+# 		logger.error(f'Error while fetching reverse whois info: {e}')
+# 	return domains
 
+def reverse_whois(lookup_keyword):
+    domains = []
+    """
+    This function will use ViewDNS to fetch reverse WHOIS info.
+    Input: Lookup keyword like email or registrar name.
+    Returns a list of domains as strings.
+    """
+    logger.info(f'Querying reverse whois for {lookup_keyword}')
+
+    token=os.getenv("SCRAPE_API_TOKEN")
+    target_url = urllib.parse.quote(f"https://viewdns.info/reversewhois/?q={lookup_keyword}")  # Fixed the correct ViewDNS URL
+    url = f"http://api.scrape.do/?token={token}&url={target_url}"
+    
+    response = requests.get(url)  # Simplified request
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    table = soup.find("table", {"class": "min-w-full bg-white dark:bg-gray-800"}) # ViewDNS uses border="1" tables
+    if not table:
+        logger.warning("No data found.")
+        return []
+
+    try:
+        for row in table.find_all("tr")[1:]:  # Skip the header row
+            columns = row.find_all("td")
+            if not columns:
+                continue
+            dom = columns[0].get_text(strip=True)
+            if dom.lower() == "domain name":
+                continue
+            domains.append(dom)
+    except Exception as e:
+        logger.error(f'Error while fetching reverse WHOIS info: {e}')
+
+    return domains
+
+# def get_domain_historical_ip_address(domain):
+#     ips = []
+#     '''
+#     This function will use viewdns to fetch historical IP address
+#     for a domain.
+#     '''
+#     logger.info(f'Fetching historical IP address for domain {domain}')
+#     url = f"https://viewdns.info/iphistory/?domain={domain}"
+#     headers = {
+#         "Sec-Ch-Ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"104\"",
+#         "Sec-Ch-Ua-Mobile": "?0",
+#         "Sec-Ch-Ua-Platform": "\"Linux\"",
+#         "Upgrade-Insecure-Requests": "1",
+#         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
+#         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+#         "Sec-Fetch-Site": "same-origin",
+#         "Sec-Fetch-Mode": "navigate",
+#         "Sec-Fetch-User": "?1",
+#         "Sec-Fetch-Dest": "document",
+#         "Referer": "https://viewdns.info/",
+#         "Accept-Encoding": "gzip, deflate",
+#         "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"
+#     }
+    
+#     response = requests.get(url, headers=headers)
+#     soup = BeautifulSoup(response.content, 'html.parser')
+
+#     # Find the correct table (ViewDNS usually uses border="1" tables)
+#     table = soup.find("table", {"class": "min-w-full bg-white dark:bg-gray-800"})  
+
+#     if not table:
+#         logger.info("No data found.")
+#         return []
+#     rows = table.find_all("tr")[1:]  # Skip header row
+#     for row in rows:
+#         cols = row.find_all("td")  # Extract all <td> elements
+#         if len(cols) >= 4:  # Ensure there are enough columns
+#             ip = cols[0].get_text(strip=True)
+#             location = cols[1].get_text(strip=True)
+#             owner = cols[2].get_text(strip=True)
+#             last_seen = cols[3].get_text(strip=True)
+
+#             ips.append({
+#                 'ip': ip,
+#                 'location': location,
+#                 'owner': owner,
+#                 'last_seen': last_seen,
+#             })
+    
+#     # Print results
+#     for ip_data in ips:
+#         logger.info(f"IP: {ip_data['ip']}, Location: {ip_data['location']}, Owner: {ip_data['owner']}, Last Seen: {ip_data['last_seen']}")
+    
+#     return ips
 
 def get_domain_historical_ip_address(domain):
     ips = []
@@ -992,32 +1082,22 @@ def get_domain_historical_ip_address(domain):
     This function will use viewdns to fetch historical IP address
     for a domain.
     '''
-    print(f'Fetching historical IP address for domain {domain}')
-    url = f"https://viewdns.info/iphistory/?domain={domain}"
-    headers = {
-        "Sec-Ch-Ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"104\"",
-        "Sec-Ch-Ua-Mobile": "?0",
-        "Sec-Ch-Ua-Platform": "\"Linux\"",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "Sec-Fetch-Site": "same-origin",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-User": "?1",
-        "Sec-Fetch-Dest": "document",
-        "Referer": "https://viewdns.info/",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"
-    }
-    
-    response = requests.get(url, headers=headers)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    
+    logger.info(f'Fetching historical IP address for domain {domain}')
+
+    token=os.getenv("SCRAPE_API_TOKEN")
+
+    print(f'this is token {token}')
+
+    targetUrl = urllib.parse.quote(f"https://viewdns.info/iphistory/?domain={domain}")
+    url = "http://api.scrape.do/?token={}&url={}".format(token, targetUrl)
+    response = requests.request("GET", url)
+
+    soup = BeautifulSoup(response.text, 'html.parser')    
     # Find the correct table (ViewDNS usually uses border="1" tables)
     table = soup.find("table", {"class": "min-w-full bg-white dark:bg-gray-800"})  
-    print(f'this is table {response.content}')
+    # print(f'this is table {response.text}')
     if not table:
-        print("No data found.")
+        logger.info("No data found.")
         return []
     rows = table.find_all("tr")[1:]  # Skip header row
     for row in rows:
@@ -1036,11 +1116,10 @@ def get_domain_historical_ip_address(domain):
             })
     
     # Print results
-    for ip_data in ips:
-        print(f"IP: {ip_data['ip']}, Location: {ip_data['location']}, Owner: {ip_data['owner']}, Last Seen: {ip_data['last_seen']}")
+    # for ip_data in ips:
+    #     logger.info(f"IP: {ip_data['ip']}, Location: {ip_data['location']}, Owner: {ip_data['owner']}, Last Seen: {ip_data['last_seen']}")
     
     return ips
-
 
 def get_open_ai_key():
 	openai_key = OpenAiAPIKey.objects.all()

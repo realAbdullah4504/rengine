@@ -3802,11 +3802,11 @@ def query_whois(target, force_reload_whois=False):
 	try:
 		# TODO: Implement cache whois only for 48 hours otherwise get from whois server
 		# TODO: in 3.0
-		# if not force_reload_whois:
-		# 	logger.info(f'Querying WHOIS information for {target} from db...')
-		# 	domain_info = get_domain_info_from_db(target)
-		# 	if domain_info:
-		# 		return format_whois_response(domain_info)
+		if not force_reload_whois:
+			logger.info(f'Querying WHOIS information for {target} from db...')
+			domain_info = get_domain_info_from_db(target)
+			if domain_info:
+				return format_whois_response(domain_info)
 			
 		# Query WHOIS information as not found in db
 		logger.info(f'Whois info not found in db')
@@ -3919,7 +3919,6 @@ def fetch_related_tlds_and_domains(domain):
 	return list(related_tlds), list(related_domains)
 
 
-
 def fetch_whois_data_using_netlas(target):
 	"""
 		Fetch WHOIS data using netlas.
@@ -3931,6 +3930,8 @@ def fetch_whois_data_using_netlas(target):
 	logger.info(f'Fetching WHOIS data for {target} using Netlas...')
 	command = f'netlas host {target} -f json'
 	netlas_key = get_netlas_key()
+	# netlas_key='9ejZs2zirkpsnIQ5ZsYFsulnryPZRPxm'
+
 	if netlas_key:
 		command += f' -a {netlas_key}'
 
