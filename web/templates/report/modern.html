@@ -937,7 +937,7 @@
                             <th class="page-title-td">Título de página</th>
                             <th class="status-td">Estado de http</th>
                             {% comment %} Si Show Vuln está allí, también podemos mostrar un recuento total de vulnerabilidades {% endcomment %}
-                            {% if show_vuln %}<th class="status-td">Cuento de vulnerabilidades</th>{% endif %}
+                            {% if show_vuln %}<th class="status-td">Cantidad de vulnerabilidades</th>{% endif %}
                         </tr>
                         {% for subdomain in subdomains %}
                             <tr class=" {% if subdomain.http_status >= 200 and subdomain.http_status < 300 %} low-td {% elif subdomain.http_status >= 300 and subdomain.http_status < 400 %} medium-td {% elif subdomain.http_status >= 400 and subdomain.http_status < 500 %} high-td {% else %} unknown-td {% endif %} ">

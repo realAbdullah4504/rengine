@@ -44,7 +44,7 @@ Panel
 				<h2 class="text-primary my-3 text-center"><span data-plugin="counterup">{{subdomain_count|intcomma}}</span></h2>
 				<div id="subdomains_chart"></div>
 				<br>
-				<p class="text-success mb-0 mt-2"><span class="badge badge-soft-success rounded-pill float-end">Subdominios vivos: {{alive_count|intcomma}}</span></p>
+				<p class="text-success mb-0 mt-2"><span class="badge badge-soft-success rounded-pill float-end">Subdominios activos: {{alive_count|intcomma}}</span></p>
 				<br>
 				<br>
 			</div>
@@ -54,11 +54,11 @@ Panel
 		<div class="card" id="tooltip-container2">
 			<div class="card-body">
 				<i class="fa fa-info-circle text-muted float-end" data-bs-container="#tooltip-container2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Los puntos finales/URL totales descubiertos por Rengine en todos los objetivos y subdominios."></i>
-				<h4 class="mt-0 font-16">Puntos finales totales</h4>
+				<h4 class="mt-0 font-16">Endpoints Totales</h4>
 				<h2 class="text-primary my-3 text-center">{{endpoint_count|intcomma}}</h2>
 				<div id="endpoint_chart"></div>
 				<br>
-				<p class="text-success mb-0 mt-2"><span class="badge badge-soft-success rounded-pill float-end">Puntos finales vivos: {{endpoint_alive_count|intcomma}}</span></p>
+				<p class="text-success mb-0 mt-2"><span class="badge badge-soft-success rounded-pill float-end">Endpoints activos: {{endpoint_alive_count|intcomma}}</span></p>
 				<br>
 				<br>
 			</div>
@@ -86,7 +86,7 @@ Panel
 				<div class="d-flex align-items-start mb-3">
 					<div class="w-100">
 						<h5 class="mt-0 mb-0 font-15">
-							<i class='mdi mdi-trending-up me-2 font-18 text-primary'></i> Actividad alimentar
+							<i class='mdi mdi-trending-up me-2 font-18 text-primary'></i> Actividad
 						</h5>
 					</div>
 				</div>
@@ -127,7 +127,7 @@ Panel
 				<div class="d-flex align-items-start mb-3">
 					<div class="w-100">
 						<h5 class="mt-0 mb-0 font-15">
-							<i class='fa fa-bug me-2 font-18 text-danger'></i> Alimentación de vulnerabilidad
+							<i class='fa fa-bug me-2 font-18 text-danger'></i> Vulnerabilidades
 						</h5>
 					</div>
 				</div>
@@ -236,7 +236,7 @@ Panel
 				{% include 'base/_items/widgets/vulnerability_breakdown_by_severity_chart.html' %}
 			</div>
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-				{% include 'base/_items/most_vuln_target.html' with most_vuln_widget_title='Most Vulnerable Target'%}
+				{% include 'base/_items/most_vuln_target.html' with most_vuln_widget_title='Activos con más vulnerabilidades'%}
 			</div>
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 				{% include 'base/_items/most_common_vuln.html' %}

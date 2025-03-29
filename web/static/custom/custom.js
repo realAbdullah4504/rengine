@@ -2620,7 +2620,7 @@ function get_most_vulnerable_target(slug=null, scan_id=null, target_id=null, ign
 				<thead>
 				<tr>
 				<th style="width: 60%">Objetivo</th>
-				<th style="width: 30%">Cuento de vulnerabilidades</th>
+				<th style="width: 30%">Cantidad de vulnerabilidades</th>
 				</tr>
 				</thead>
 				<tbody id="most_vulnerable_target_tbody">
@@ -2692,7 +2692,7 @@ function get_most_common_vulnerability(slug=null, scan_id=null, target_id=null, 
 					<thead>
 						<tr>
 							<th style="width: 60%">Nombre de vulnerabilidad</th>
-							<th style="width: 20%">Contar</th>
+							<th style="width: 20%">Cantidad</th>
 							<th style="width: 20%">Gravedad</th>
 						</tr>
 					</thead>

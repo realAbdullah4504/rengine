@@ -3802,11 +3802,11 @@ def query_whois(target, force_reload_whois=False):
 	try:
 		# TODO: Implement cache whois only for 48 hours otherwise get from whois server
 		# TODO: in 3.0
-		if not force_reload_whois:
-			logger.info(f'Querying WHOIS information for {target} from db...')
-			domain_info = get_domain_info_from_db(target)
-			if domain_info:
-				return format_whois_response(domain_info)
+		# if not force_reload_whois:
+		# 	logger.info(f'Querying WHOIS information for {target} from db...')
+		# 	domain_info = get_domain_info_from_db(target)
+		# 	if domain_info:
+		# 		return format_whois_response(domain_info)
 			
 		# Query WHOIS information as not found in db
 		logger.info(f'Whois info not found in db')
@@ -3825,7 +3825,7 @@ def query_whois(target, force_reload_whois=False):
 				executor.submit(reverse_whois, target): 'reverse_whois',
 				executor.submit(fetch_whois_data_using_netlas, target): 'whois_data',
 			}
-
+	
 			for future in concurrent.futures.as_completed(futures_func):
 				func_name = futures_func[future]
 				try:
@@ -3859,6 +3859,7 @@ def query_whois(target, force_reload_whois=False):
 		whois_related_domains = whois_data.get('related_domains', [])
 		related_domains += whois_related_domains
 
+
 		# remove duplicate ones
 		related_domains = list(set(related_domains))
 		domain_info.related_domains = related_domains
@@ -3874,7 +3875,6 @@ def query_whois(target, force_reload_whois=False):
 			'target': target, 
 			'result': f'An error occurred while querying WHOIS information for {target}: {str(e)}'
 		}
-
 
 def fetch_related_tlds_and_domains(domain):
 	"""
