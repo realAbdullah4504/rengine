@@ -1268,20 +1268,20 @@ class RengineUpdateCheck(APIView):
 		is_version_update_available = version.parse(current_version) < version.parse(latest_version)
 
 		# if is_version_update_available then we should create inapp notification
-		create_inappnotification(
-			title='Actualización disponible',
-			description=f'Actualización a la versión {latest_version} está disponible',
-			notification_type=SYSTEM_LEVEL_NOTIFICATION,
-			project_slug=None,
-			icon='mdi-update',
-			redirect_link='https://github.com/yogeshojha/rengine/releases',
-			open_in_new_tab=True
-		)
+		if is_version_update_available:
+			create_inappnotification(
+				title='Actualización disponible',
+				description=f'Actualización a la versión {latest_version} está disponible',
+				notification_type=SYSTEM_LEVEL_NOTIFICATION,
+				project_slug=None,
+				icon='mdi-update',
+				redirect_link='https://github.com/yogeshojha/rengine/releases',
+				open_in_new_tab=True
+			)
 
 		return_response['update_available'] = is_version_update_available
 		if is_version_update_available:
 			return_response['changelog'] = response[0]['body']
-
 		return Response(return_response)
 
 

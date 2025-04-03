@@ -46,9 +46,11 @@ SECRET_KEY = first_run(SECRET_FILE, BASE_DIR)
 # Rengine version
 # reads current version from a file called .version
 VERSION_FILE = os.path.join(BASE_DIR, '.version')
+print(f"Looking for version file at: {VERSION_FILE}")
 if os.path.exists(VERSION_FILE):
     with open(VERSION_FILE, 'r') as f:
         _version = f.read().strip()
+        print(f'reNgine version: {_version}')
 else:
     _version = 'unknown'
 
