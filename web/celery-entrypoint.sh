@@ -146,6 +146,14 @@ fi
 naabu && subfinder && amass
 nuclei
 
+# if [ ! -d "/root/nuclei-templates/.git" ]; then
+#   echo "Cloning Nuclei templates..."
+#   git clone https://github.com/projectdiscovery/nuclei-templates.git /root/nuclei-templates
+# else
+#   echo "Updating Nuclei templates..."
+#   cd /root/nuclei-templates && git pull
+# fi
+
 if [ ! -d "/root/nuclei-templates/geeknik_nuclei_templates" ];
 then
   echo "Installing Geeknik Nuclei templates"

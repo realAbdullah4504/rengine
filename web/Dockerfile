@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 ARG GECKOVERSION=0.33.0
-ARG GOVERSION=1.21.5
+ARG GOVERSION=1.22.2
 
 RUN ARCH=$(dpkg --print-architecture) \ 
     && if [ "${ARCH}" ! "arm64" ] || [ "${ARCH}" ! "amd64" ]; then \
