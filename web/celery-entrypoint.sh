@@ -132,8 +132,27 @@ then
   echo "Installing GF Patterns"
   mkdir ~/.gf
   cp -r $GOPATH/src/github.com/tomnomnom/gf/examples/*.json ~/.gf
+  git clone https://github.com/coffinxp/GFpattren.git ~/.gf/GFpattren-coffinxp
+  git clone https://github.com/r00tkie/grep-pattern.git ~/.gf/grep-pattern-r00tkie
+  git clone https://github.com/mrofisr/gf-patterns.git ~/.gf/gf-patterns-mrofisr
+  git clone https://github.com/robre/gf-patterns.git ~/.gf/gf-patterns-robre
+  git clone https://github.com/dwisiswant0/gf-secrets.git ~/.gf/gf-secrets-dwisiswant0
+  git clone https://github.com/bp0lr/myGF_patterns.git ~/.gf/myGF_patterns-bp0lr
+  git clone https://github.com/cypher3107/GF-Patterns.git ~/.gf/GF-Patterns-cypher3107
+  git clone https://github.com/Matir/gf-patterns.git ~/.gf/gf-patterns-matir
+  git clone https://github.com/arthur4ires/gfPatterns.git ~/.gf/gfPatterns-arthur4ires
+  git clone https://github.com/R0X4R/Garud.git ~/.gf/Garud-R0X4R
+  git clone https://github.com/seqrity/Allin1gf.git ~/.gf/Allin1gf-seqrity
+  git clone https://github.com/Jude-Paul/GF-Patterns-For-Dangerous-PHP-Functions.git ~/.gf/GF-Patterns-For-Dangerous-PHP-Functions-Jude-Paul
+  git clone https://github.com/NitinYadav00/gf-patterns.git ~/.gf/gf-patterns-nitinyadav00
+  git clone https://github.com/scumdestroy/YouthCrew-GF-Patterns.git ~/.gf/YouthCrew-GF-Patterns-scumdestroy
+
+
   git clone https://github.com/1ndianl33t/Gf-Patterns ~/Gf-Patterns
   mv ~/Gf-Patterns/*.json ~/.gf
+  find ~/.gf -type f -name "*.json" -exec mv {} ~/.gf \;
+  find ~/.gf -mindepth 1 -type d -exec rm -rf {} +
+  
 fi
 
 # store scan_results
