@@ -26,6 +26,10 @@ services:
       context: ./web
     restart: always
     entrypoint: /usr/src/app/celery-entrypoint.sh
+    deploy:
+      resources:
+        limits:
+          cpus: '3'
     # command: celery -A reNgine worker --autoscale=${MAX_CONCURRENCY},${MIN_CONCURRENCY} -l INFO
     volumes:
       - ./web:/usr/src/app
@@ -52,6 +56,17 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - rengine_network
+
+  flower:
+    image: mher/flower
+    ports:
+      - "5555:5555"
+    command: celery --broker=redis://redis:6379/0 flower
+    depends_on:
+      - redis
+      - celery
     networks:
       - rengine_network
 
