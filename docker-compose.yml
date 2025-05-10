@@ -30,6 +30,7 @@ services:
       resources:
         limits:
           cpus: '3'
+          memory: '13G'
     # command: celery -A reNgine worker --autoscale=${MAX_CONCURRENCY},${MIN_CONCURRENCY} -l INFO
     volumes:
       - ./web:/usr/src/app
