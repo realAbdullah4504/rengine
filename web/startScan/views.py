@@ -1090,7 +1090,6 @@ def create_report(request, id):
         'is_ignore_info_vuln': is_ignore_info_vuln,
     }
 
-    print("Report data: ", project_slug)
     # Get report related config
     vuln_report_query = VulnerabilityReportSetting.objects.filter(project_slug=project_slug)
     if vuln_report_query.exists():

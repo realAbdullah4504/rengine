@@ -35,6 +35,7 @@ from scanEngine.models import (EngineType, InstalledExternalTool, Notification, 
 from startScan.models import *
 from startScan.models import EndPoint, Subdomain, Vulnerability
 from targetApp.models import Domain
+from django.core.mail import send_mail
 
 """
 Celery tasks.
@@ -383,12 +384,16 @@ def report(ctx={}, description=None):
 	scan.stop_scan_date = timezone.now()
 	scan.save()
 
+
 	# Send scan status notif
 	send_scan_notif.delay(
 		scan_history_id=scan_id,
 		subscan_id=subscan_id,
 		engine_id=engine_id,
 		status=status_h)
+	
+	if scan and not subscan and status == SUCCESS_TASK:
+		send_scan_completion_email(scan)
 
 
 #------------------------- #
@@ -4730,3 +4735,113 @@ def llm_vulnerability_description(vulnerability_id):
 			vuln.save()
 
 	return response
+
+
+
+
+# def send_scan_completion_email(scan_history):
+#     """Send email notification when scan completes"""
+    
+#     domain_name = scan_history.domain.name
+#     scan_status = scan_history.scan_status
+#     start_time = scan_history.start_scan_date
+#     end_time = scan_history.stop_scan_date
+    
+#     subject = f"Scan Completed - {domain_name}"
+    
+#     message = f"""
+#     Scan Details
+
+#     Domain: {domain_name}
+#     Status: {scan_status}
+#     Start Time: {start_time}
+#     End Time: {end_time}
+#     ------------
+    
+#     View detailed results by logging into your reNgine dashboard.
+#     """
+    
+#     try:
+#         send_mail(
+#             subject=subject,
+#             message=message,
+#             from_email='zindy@telehunt.co',
+#             recipient_list=['abdullahjaved4504@gmail.com'],
+#             fail_silently=False
+#         )
+#         logger.info(f"Scan completion email sent for")
+#     except Exception as e:
+#         logger.error(f"Failed to send scan completion email: {e}")
+
+
+def send_scan_completion_email(scan_history):
+    """Send email notification when scan completes with vulnerability summary"""
+    
+    domain_name = scan_history.domain.name
+    scan_status = scan_history.scan_status
+    start_time = scan_history.start_scan_date
+    end_time = scan_history.stop_scan_date
+    
+    # Get vulnerabilities found in this scan
+    vulnerabilities = Vulnerability.objects.filter(scan_history=scan_history)
+    
+    # Count vulnerabilities by severity
+    critical_vulns = vulnerabilities.filter(severity=4).count()
+    high_vulns = vulnerabilities.filter(severity=3).count()
+    medium_vulns = vulnerabilities.filter(severity=2).count()
+    low_vulns = vulnerabilities.filter(severity=1).count()
+    info_vulns = vulnerabilities.filter(severity=0).count()
+    
+    # Only include high and critical vulnerabilities details
+    important_vulns = vulnerabilities.filter(severity__gte=3)
+    vuln_details = ""
+    
+    if important_vulns.exists():
+        vuln_details = "\nVulnerabilidades altas/críticas encontradas:\n"
+        for vuln in important_vulns:
+            severity = "Crítica" if vuln.severity == 4 else "Alta"
+            vuln_details += f"\n- {vuln.name} ({severity})"
+            vuln_details += f"\n  url: {vuln.http_url}"
+            if vuln.description:
+                # Truncate description if too long
+                desc = vuln.description[:150] + "..." if len(vuln.description) > 150 else vuln.description
+                vuln_details += f"\n  Descripción: {desc}"
+    
+    subject = f"Escaneo completado - {domain_name}"
+    
+    if critical_vulns > 0 or high_vulns > 0:
+        subject = f"Urgente: problemas de seguridad encontrados - {domain_name}"
+    
+    message = f"""
+	Detalles de escaneo
+
+	Dominio: {domain_name}
+	Estado: {scan_status}
+	Hora de inicio: {start_time}
+	Tiempo de finalización: {end_time}
+
+	Vulnerability Summary:
+	- Crítica: {critical_vulns}
+	- Alta: {high_vulns}
+	- Medio: {medium_vulns}
+	- Bajo: {low_vulns}
+	- Información: {info_vulns}
+	{vuln_details}
+	------------
+
+	View detailed results by logging into your reNgine dashboard.
+	"""
+    
+    try:
+        recipient_list = [EMAIL_RECIPENT]
+        
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=DEFAULT_FROM_EMAIL,
+            recipient_list=recipient_list,
+            fail_silently=False
+        )
+        logger.info(f"Scan completion email sent for {domain_name} with vulnerability summary")
+    except Exception as e:
+        logger.error(f"Failed to send scan completion email: {e}")
