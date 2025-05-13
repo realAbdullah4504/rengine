@@ -422,9 +422,10 @@ def report_settings(request, slug):
     primary_color = '#FFB74D'
     secondary_color = '#212121'
 
+    # Change this section to filter by project_slug
     report = None
-    if VulnerabilityReportSetting.objects.all().exists():
-        report = VulnerabilityReportSetting.objects.all()[0]
+    if VulnerabilityReportSetting.objects.filter(project_slug=slug).exists():
+        report = VulnerabilityReportSetting.objects.get(project_slug=slug)
         primary_color = report.primary_color
         secondary_color = report.secondary_color
         form.set_value(report)
@@ -436,21 +437,25 @@ def report_settings(request, slug):
             form = ReportForm(request.POST, instance=report)
         else:
             form = ReportForm(request.POST or None)
-
+            if form.is_valid():
+                report = form.save(commit=False)
+                report.project_slug = slug  # Set the project slug
+                report.save()
+        
         if form.is_valid():
             form.save()
             messages.add_message(
                 request,
                 messages.INFO,
-                'Report Settings updated.')
+                'Report Settings updated for project {}'.format(slug))
             return http.HttpResponseRedirect(reverse('report_settings', kwargs={'slug': slug}))
-
 
     context['settings_nav_active'] = 'active'
     context['report_settings_li'] = 'active'
     context['settings_ul_show'] = 'show'
     context['primary_color'] = primary_color
     context['secondary_color'] = secondary_color
+    context['project_slug'] = slug
     return render(request, 'scanEngine/settings/report.html', context)
 
 

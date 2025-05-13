@@ -13,6 +13,21 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     networks:
       - rengine_network
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - rengine_network
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
   redis:
     restart: always
@@ -181,6 +196,8 @@ volumes:
   scan_results:
   static_volume:
   ollama_data:
+  pgadmin_data:
+
 
 secrets:
   proxy.ca:
