@@ -495,7 +495,21 @@ class Vulnerability(models.Model):
 	def __str__(self):
 		cve_str = ', '.join(f'`{cve.name}`' for cve in self.cve_ids.all())
 		severity = NUCLEI_REVERSE_SEVERITY_MAP[self.severity]
-		return f'{self.http_url} | `{severity.upper()}` | `{self.name}` | `{cve_str}`'
+		
+		# Get ports information if subdomain exists
+		ports_info = ""
+		if self.subdomain:
+			port_numbers = []
+			for ip in self.subdomain.ip_addresses.all():
+				for port in ip.ports.all():
+					if port.number not in port_numbers:
+						port_numbers.append(port.number)
+			
+			if port_numbers:
+				ports_info = f" | Ports: {', '.join(map(str, port_numbers))}"
+		
+		return f'{self.http_url}{ports_info} | `{severity.upper()}` | `{self.name}` | `{cve_str}`'
+
 
 	def get_severity(self):
 		return self.severity

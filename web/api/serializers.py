@@ -980,6 +980,7 @@ class VulnerabilitySerializer(serializers.ModelSerializer):
 	discovered_date = serializers.SerializerMethodField()
 	severity = serializers.SerializerMethodField()
 	scan_history = serializers.SerializerMethodField()
+	ports= serializers.SerializerMethodField()
 
 	def get_discovered_date(self, Vulnerability):
 		return Vulnerability.discovered_date.strftime("%b %d, %Y %H:%M")
@@ -999,6 +1000,19 @@ class VulnerabilitySerializer(serializers.ModelSerializer):
 			return "Unknown"
 		else:
 			return "Unknown"
+	
+	def get_ports(self, obj):
+		subdomain = obj.subdomain
+		if not subdomain:
+			return []
+
+		unique_ports = {}
+		for ip in subdomain.ip_addresses.all():
+			for port in ip.ports.all():
+				unique_ports[port.id] = port
+
+		port_list = list(unique_ports.values())
+		return PortSerializer(port_list, many=True).data
 		
 	def get_scan_history(self, vulnerability):
 		scan_history_dict = {}
