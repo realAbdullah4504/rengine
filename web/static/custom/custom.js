@@ -208,22 +208,22 @@ function parse_comma_values_into_span(data, color, outline = null) {
 function get_severity_badge(severity) {
 	switch (severity) {
 		case 'Info':
-			return "<span class='badge badge-soft-primary'>&nbsp;&nbsp;INFO&nbsp;&nbsp;</span>";
+			return "<span class='badge badge-soft-primary'>&nbsp;&nbsp;Información&nbsp;&nbsp;</span>";
 			break;
 		case 'Low':
 			return "<span class='badge badge-low'>&nbsp;&nbsp;LOW&nbsp;&nbsp;</span>";
 			break;
 		case 'Medium':
-			return "<span class='badge badge-soft-warning'>&nbsp;&nbsp;MEDIUM&nbsp;&nbsp;</span>";
+			return "<span class='badge badge-soft-warning'>&nbsp;&nbsp;MEDIO&nbsp;&nbsp;</span>";
 			break;
 		case 'High':
-			return "<span class='badge badge-soft-danger'>&nbsp;&nbsp;HIGH&nbsp;&nbsp;</span>";
+			return "<span class='badge badge-soft-danger'>&nbsp;&nbsp;ALTA&nbsp;&nbsp;</span>";
 			break;
 		case 'Critical':
-			return "<span class='badge badge-critical'>&nbsp;&nbsp;CRITICAL&nbsp;&nbsp;</span>";
+			return "<span class='badge badge-critical'>&nbsp;&nbsp;CRÍTICA&nbsp;&nbsp;</span>";
 			break;
 		case 'Unknown':
-		return "<span class='badge badge-soft-info'>&nbsp;&nbsp;UNKNOWN&nbsp;&nbsp;</span>";
+		return "<span class='badge badge-soft-info'>&nbsp;&nbsp;DESCONOCIDA&nbsp;&nbsp;</span>";
 		default:
 			return "";
 	}

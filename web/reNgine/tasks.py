@@ -1427,6 +1427,29 @@ def port_scan(self, hosts=[], ctx={}, description=None):
 		if port_number in UNCOMMON_WEB_PORTS:
 			port.is_uncommon = True
 			port.save()
+
+			# Save to vulnerability table
+			if subdomain:
+				vuln_data = {
+					"name": f"Uncommon Port {port_number} Open",
+					"description": f"Port {port_number} ({res.get('service_name', 'unknown')}) was found open on {host}. This port is uncommon and might pose a risk.",
+					"severity": 2,
+					"type":"port",
+					"source": "port_scan",
+				}
+
+				vuln, _ = save_vulnerability(
+					target_domain=self.domain,
+					http_url=http_url,
+					scan_history=self.scan,
+					subscan=self.subscan,
+					subdomain=subdomain,
+					**vuln_data
+				)
+
+				if not vuln:
+					logger.warning(f"Failed to save vulnerability for uncommon port {port_number} on {host}")
+
 		ip.ports.add(port)
 		ip.save()
 		if host in ports_data:
@@ -4829,7 +4852,7 @@ def send_scan_completion_email(scan_history):
 	{vuln_details}
 	------------
 
-	View detailed results by logging into your reNgine dashboard.
+	View detailed results by logging into your Ateitis vuln dashboard.
 	"""
     
     try:

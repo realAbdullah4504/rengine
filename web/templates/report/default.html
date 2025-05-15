@@ -943,22 +943,22 @@
                     {% endif %}
                   </span>
                   {% if vulnerability.severity == -1 %}
-                    <span style="float: right;" class="badge bg-grey">Unknown</span>
+                    <span style="float: right;" class="badge bg-grey">Desconocida</span>
                     <div class="grey-hr-line" ></div>
                   {% elif vulnerability.severity == 0 %}
-                    <span style="float: right;" class="badge bg-info">INFO</span>
+                    <span style="float: right;" class="badge bg-info">Información</span>
                     <div class="info-hr-line" ></div>
                   {% elif vulnerability.severity == 1 %}
-                    <span style="float: right;" class="badge bg-low">LOW</span>
+                    <span style="float: right;" class="badge bg-low">BAJA</span>
                     <div class="low-hr-line" ></div>
                   {% elif vulnerability.severity == 2 %}
-                    <span style="float: right;" class="badge bg-medium">MEDIUM</span>
+                    <span style="float: right;" class="badge bg-medium">MEDIO</span>
                     <div class="medium-hr-line" ></div>
                   {% elif vulnerability.severity == 3 %}
-                    <span style="float: right;" class="badge bg-high">HIGH</span>
+                    <span style="float: right;" class="badge bg-high">ALTA</span>
                     <div class="high-hr-line" ></div>
                   {% elif vulnerability.severity == 4 %}
-                    <span style="float: right;" class="badge bg-critical">CRITICAL</span>
+                    <span style="float: right;" class="badge bg-critical">CRÍTICA</span>
                     <div class="critical-hr-line" ></div>
                   {% endif %}
                 </h4>

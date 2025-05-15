@@ -369,7 +369,7 @@ All Vulnerabilities
 		});
 
 		var radioGroup = document.getElementsByName('grouping_vuln_row');
-		radioGroup.forEach(function (radioButton) {
+		radioGroup?.forEach(function (radioButton) {
 			radioButton.addEventListener('change', function () {
 				if (this.checked) {
 					var groupRows = document.querySelectorAll('tr.group');
